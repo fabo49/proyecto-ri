@@ -11,7 +11,7 @@ class QuotesSpider(scrapy.Spider):
 		page = response.url.split("/")[-2]
 		filename = 'quotes-%s.html' % page 
 		with open(filename, 'wb') as f:
-		f.write(response.body)
+			f.write(response.body)
 
 		for quote in response.css('div.quote'):
 			yield {
