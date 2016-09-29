@@ -11,22 +11,31 @@ Tarea programada 1
 #       Modulos externos
 # ============================
 
-
-from stemming.porter2 import stem as porter     # Algoritmo Porter2 para hacer stemming
-from stemming.lovins import stem as lovins      # Algoritmo Lovins para hacer stemming
+from nltk.stem.porter import *   # Modulo con el algoritmo de Porter para hacer stemming
 
 # ========================
 #       Clase Parser
 # ========================
 
-# Clase que contiene los metodos necesarios para parsear documentos
 class Parser(object):
-    '''Clase que contiene los metodos necesarios para parsear documentos'''
+    """Clase que contiene los metodos necesarios para parsear documentos"""
 
-    def parse_porter(doc):
-        '''Metodo estatico que se encarga de normalizar y parsear el documento con el algoritmo de Porter'''
-        porter("hello")
+    @staticmethod
+    def porter(path):
+        """
+        Metodo estatico que se encarga de normalizar y parsear un documento con el algoritmo de Porter
+            * Recibe como parametro la ruta del documento que va a parsear
+        """
+        porter = PorterStemmer()
+        doc = open(path, 'r')
+        result = open('p_'+path, 'a')   # TODO: ELIMINAR
+        # result = '' # TODO: descomentar
+        for line in doc:
+            for word in line.split(' '):    # Se ocupa usar split(' ') para que solo haga split por espacios, si se usa split() tambien cuenta los cambios de linea
+                # result += porter.stem(word).lower() if word.endswith('\n') else porter.stem(word).lower() + ' ' # TODO: descomentar
+                result.write(porter.stem(word).lower()) if word.endswith('\n') else result.write(porter.stem(word).lower()+' ')     # TODO: ELIMINAR
+        doc.close()
+        result.close()
+        # result # TODO: descomentar
 
-    def parse_lovins(doc):
-        '''Metodo estatico que se encarga de normalizar y parsear el documento segun el algorimto de Lovins'''
-        lovins("goodbye")
+Parser.porter('prueba.txt')
