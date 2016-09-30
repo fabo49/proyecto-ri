@@ -52,10 +52,11 @@ class LanguageProcessing(object):
         :return: True si es una stop word, False en caso contrario
         """
         stop_words = get_stop_words('en')
-        word in stop_words
+        return word in stop_words
 
-#LanguageProcessing.Porter('prueba.txt')
-if LanguageProcessing.IsStopWord('a'):
-    print("Hola mundo")
-else:
-    print("Adios")
+
+# ===================
+#       Pruebas
+# ===================
+# LanguageProcessing.Porter('prueba.txt')
+# print 'Hola' if LanguageProcessing.IsStopWord('a') else 'Adios'
