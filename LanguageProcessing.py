@@ -12,30 +12,50 @@ Tarea programada 1
 # ============================
 
 from nltk.stem.porter import *   # Modulo con el algoritmo de Porter para hacer stemming
+from stop_words import get_stop_words   # Modulo con stop_words en distintos idiomas
 
 # ===================================================
 #       Clase del procesamiento linguistico
 # ===================================================
 
 class LanguageProcessing(object):
-    """Clase que contiene los metodos necesarios para realizar el procesamiento linguistico de documentos"""
+    """
+    Clase que contiene los metodos necesarios para realizar el procesamiento linguistico de documentos.
+
+    Requiere que los modulos nltk y stop-words esten instalados, para instalarlos ingrese los siguientes comandos en
+    la terminal:
+        * sudo pip install stop-words
+        * sudo pip install -U nltk
+    """
 
     @staticmethod
     def Porter(path):
         """
         Metodo estatico que se encarga de normalizar y parsear un documento con el algoritmo de Porter
-            * Recibe como parametro la ruta del documento que va a parsear
+        :param path: La ruta del documento a parsear
+        :return: Un archivo en la misma ruta y con el mismo nombre pero con el prefijo 'p_' donde esta el documento parseado con Porter
         """
         porter_stemmer = PorterStemmer()
         doc = open(path, 'r')
-        result = open('p_'+path, 'a')   # TODO: ELIMINAR
-        # result = '' # TODO: descomentar
+        result = open('p_'+path, 'a')
         for line in doc:
             for word in line.split(' '):    # Se ocupa usar split(' ') para que solo haga split por espacios, si se usa split() tambien cuenta los cambios de linea
-                # result += porter.stem(word).lower() if word.endswith('\n') else porter.stem(word).lower() + ' ' # TODO: descomentar
-                result.write(porter_stemmer.stem(word).lower()) if word.endswith('\n') else result.write(porter_stemmer.stem(word).lower()+' ')     # TODO: ELIMINAR
+                result.write(porter_stemmer.stem(word).lower()) if word.endswith('\n') else result.write(porter_stemmer.stem(word).lower()+' ')
         doc.close()
         result.close()
-        # result # TODO: descomentar
 
-LanguageProcessing.Porter('prueba.txt')
+    @staticmethod
+    def IsStopWord(word):
+        """
+        Metodo que revisa si una parabra esta dentro de la lista de stop words del idioma ingles.
+        :param word: la palabra que se desea averiguar si es una stop word.
+        :return: True si es una stop word, False en caso contrario
+        """
+        stop_words = get_stop_words('en')
+        word in stop_words
+
+#LanguageProcessing.Porter('prueba.txt')
+if LanguageProcessing.IsStopWord('a'):
+    print("Hola mundo")
+else:
+    print("Adios")
