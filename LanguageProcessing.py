@@ -32,17 +32,16 @@ class LanguageProcessing(object):
     """
 
     @staticmethod
-    def Porter(document):
+    def Porter(tokens_list):
         """
-        Metodo estatico que se encarga de normalizar y hacer stemming a un documento con el algoritmo de Porter
-        :param document: Un string con el archivo que desea hacerle stemming.
-        :return: Una hilera con el documento parseado con Porter
+        Metodo estatico que se encarga hacer stemming a un documento con el algoritmo de Porter
+        :param document: Una lista de tokens a los que se les queire hacer stemming.
+        :return: Una lista con los tokens ya pasados por el algoritmo de Porter
         """
         porter_stemmer = PorterStemmer()
-        result = ""
-        words = document.split(' ')
-        for word in words:
-            result += porter_stemmer.stem(word).lower() if word.endswith('\n') else porter_stemmer.stem(word).lower()+' '
+        result = []
+        for token in tokens_list:
+            result.append(porter_stemmer.stem(token))
         return result
 
     @staticmethod
@@ -62,12 +61,31 @@ class LanguageProcessing(object):
         :param path: La ruta del documento a eliminar los tags.
         :return: Una hilera que contiene el texto del archivo HTML sin tags.
         """
-        return BeautifulSoup(open(path), "lxml").get_text()
+        clean_file = BeautifulSoup(open(path), "lxml")
+        for script in clean_file.find_all('script'):
+            script.extract()
+        return clean_file.get_text()
+
+    @staticmethod
+    def Tokenize(file, eliminate_stop_words):
+        """
+        Metodo que se encarga de normalizar el documento (pasando a lowercase) y elimina las stop_words si el usuario lo pide.
+        :param file: String con el archivo que se va a tokenizar.
+        :param eliminate_stop_words: Booleano que indica si se eliminan los stop_words.
+        :return: Una lista con los tokens del archivo
+        """
+        result = []
+        tokens = file.split()
+        for token in tokens:
+            if token not in result:
+                result.append('' if eliminate_stop_words and LanguageProcessing.IsStopWord(token) else token.lower())
+        return filter(None, result)     # Elimina los campos vacios de la lista
 
 # ===================
 #       Pruebas
 # ===================
 # LanguageProcessing.Porter('prueba.txt')
 # print 'Hola' if LanguageProcessing.IsStopWord('a') else 'Adios'
-# parsed = LanguageProcessing.CleanHTML('prueba.html')
-# print LanguageProcessing.Porter(parsed)
+parsed = LanguageProcessing.CleanHTML('prueba.html')
+tokenized = LanguageProcessing.Tokenize(parsed, True)
+print LanguageProcessing.Porter(tokenized)
