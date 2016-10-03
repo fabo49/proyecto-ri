@@ -13,6 +13,7 @@ Tarea programada 1
 
 from nltk.stem.porter import *   # Modulo con el algoritmo de Porter para hacer stemming
 from stop_words import get_stop_words   # Modulo con stop_words en distintos idiomas
+from bs4 import BeautifulSoup   # Para parsear documentos HTML
 
 # ===================================================
 #       Clase del procesamiento linguistico
@@ -22,10 +23,12 @@ class LanguageProcessing(object):
     """
     Clase que contiene los metodos necesarios para realizar el procesamiento linguistico de documentos.
 
-    Requiere que los modulos nltk y stop-words esten instalados, para instalarlos ingrese los siguientes comandos en
+    Requiere que los modulos nltk, BeautifulSoup y stop-words esten instalados, para instalarlos ingrese los siguientes comandos en
     la terminal:
         * sudo pip install stop-words
         * sudo pip install -U nltk
+        * sudo pip install beautifulsoup4
+        * sudo pip install lxml
     """
 
     @staticmethod
@@ -54,9 +57,18 @@ class LanguageProcessing(object):
         stop_words = get_stop_words('en')
         return word in stop_words
 
+    @staticmethod
+    def CleanHTML(path):
+        """
+        Metodo estatico que se encarga de eliminar todos los tags de html de un documento.
+        :param path: La ruta del documento a eliminar los tags.
+        :return: Una hilera que contiene el texto del archivo HTML sin tags.
+        """
+        return BeautifulSoup(open(path), "lxml").get_text()
 
 # ===================
 #       Pruebas
 # ===================
 # LanguageProcessing.Porter('prueba.txt')
 # print 'Hola' if LanguageProcessing.IsStopWord('a') else 'Adios'
+print(LanguageProcessing.CleanHTML('prueba.html'))
