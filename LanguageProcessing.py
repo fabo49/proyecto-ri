@@ -75,8 +75,8 @@ class LanguageProcessing(object):
         result = []
         tokens = file.split()
         for token in tokens:
-            result.append(('' if LanguageProcessing.IsStopWord(token) else token.lower()) if eliminate_stop_words else token.lower())
-        return result
+            result.append('' if eliminate_stop_words and LanguageProcessing.IsStopWord(token) else token.lower())
+        return filter(None, result)     # Elimina los campos vacios de la lista
 
 # ===================
 #       Pruebas
