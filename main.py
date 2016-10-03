@@ -7,7 +7,7 @@ Tarea programada 1
 @author: Fabian Rodriguez B25695
 '''
 
-from spimi import SPIMI
+from spimiProcess import SPIMI
 
 class doc():
 	doc_id = ""
