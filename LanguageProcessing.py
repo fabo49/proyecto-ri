@@ -13,6 +13,7 @@ Tarea programada 1
 
 from nltk.stem.porter import *   # Modulo con el algoritmo de Porter para hacer stemming
 from stop_words import get_stop_words   # Modulo con stop_words en distintos idiomas
+import re       # Para eliminar los tags de html del texto
 
 # ===================================================
 #       Clase del procesamiento linguistico
@@ -54,9 +55,24 @@ class LanguageProcessing(object):
         stop_words = get_stop_words('en')
         return word in stop_words
 
+    @staticmethod
+    def CleanHTML(path):
+        """
+        Metodo estatico que se encarga de eliminar todos los tags de html de un documento.
+        :param path: La ruta del documento a eliminar los tags.
+        :return: Un archivo con los tags eliminados.
+        """
+        doc = open(path, 'r')
+        result = open('c_'+path+'.txt','a')
+        cleaner = re.compile('<.*?>')
+        for line in doc:
+            result.write(re.sub(cleaner,'', line))
+        doc.close()
+        result.close()
 
 # ===================
 #       Pruebas
 # ===================
 # LanguageProcessing.Porter('prueba.txt')
 # print 'Hola' if LanguageProcessing.IsStopWord('a') else 'Adios'
+LanguageProcessing.CleanHTML('index.html')
