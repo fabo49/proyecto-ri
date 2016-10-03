@@ -26,9 +26,10 @@ class Buscador(CrawlSpider):
         links = hxs.select('//a')
         for link in links:
             href = link.select('@href').extract()[0]
+            self.log('href=%s' % href)
             if re.match('#', href[0]) is not True:
                 if re.match('/', href):
-                    href = "".join([response.url,href])
+                    href = response.url.join(href)
                     self.log('link = %s' % href)
                 else:
                     self.log('link = %s' % href)
