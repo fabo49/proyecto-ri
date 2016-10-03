@@ -65,7 +65,7 @@ class LanguageProcessing(object):
         return BeautifulSoup(open(path), "lxml").get_text()
 
     @staticmethod
-    def CleanFile(file, eliminate_stop_words):
+    def Tokenize(file, eliminate_stop_words):
         """
         Metodo que se encarga de normalizar el documento (pasando a lowercase) y elimina las stop_words si el usuario lo pide.
         :param file: String con el archivo que se va a tokenizar.
@@ -84,4 +84,4 @@ class LanguageProcessing(object):
 # LanguageProcessing.Porter('prueba.txt')
 # print 'Hola' if LanguageProcessing.IsStopWord('a') else 'Adios'
 parsed = LanguageProcessing.CleanHTML('prueba.html')
-print LanguageProcessing.CleanFile(parsed, True)
+print LanguageProcessing.Tokenize(parsed, True)
