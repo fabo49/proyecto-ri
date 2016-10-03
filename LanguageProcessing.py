@@ -75,7 +75,7 @@ class LanguageProcessing(object):
         result = []
         tokens = file.split()
         for token in tokens:
-            result.append(('' if LanguageProcessing.IsStopWord(token) else token.lower()+'\n') if eliminate_stop_words else token.lower()+'\n')
+            result.append(('' if LanguageProcessing.IsStopWord(token) else token.lower()) if eliminate_stop_words else token.lower())
         return result
 
 # ===================
@@ -84,4 +84,4 @@ class LanguageProcessing(object):
 # LanguageProcessing.Porter('prueba.txt')
 # print 'Hola' if LanguageProcessing.IsStopWord('a') else 'Adios'
 parsed = LanguageProcessing.CleanHTML('prueba.html')
-print LanguageProcessing.Porter(parsed)
+print LanguageProcessing.CleanFile(parsed, True)
