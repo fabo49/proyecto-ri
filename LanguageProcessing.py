@@ -14,7 +14,6 @@ Tarea programada 1
 from nltk.stem.porter import *   # Modulo con el algoritmo de Porter para hacer stemming
 from stop_words import get_stop_words   # Modulo con stop_words en distintos idiomas
 from bs4 import BeautifulSoup   # Para parsear documentos HTML
-import re       # Para eliminar los tags de html del texto
 
 # ===================================================
 #       Clase del procesamiento linguistico
@@ -29,6 +28,7 @@ class LanguageProcessing(object):
         * sudo pip install stop-words
         * sudo pip install -U nltk
         * sudo pip install beautifulsoup4
+        * sudo pip install lxml
     """
 
     @staticmethod
@@ -61,19 +61,14 @@ class LanguageProcessing(object):
     def CleanHTML(path):
         """
         Metodo estatico que se encarga de eliminar todos los tags de html de un documento.
-        :param html_doc: La ruta del documento a eliminar los tags.
-        :return: Un archivo con los tags eliminados con el nombre "c_NOMBREARCHIVO.txt".
+        :param path: La ruta del documento a eliminar los tags.
+        :return: Una hilera que contiene el texto del archivo HTML sin tags.
         """
-        soup = BeautifulSoup(open(path))
-        result = open('c_'+path+'.txt', 'w')
-        print(soup.get_text())
-        result.write(soup.get_text())
-        result.close()
+        return BeautifulSoup(open(path), "lxml").get_text()
 
 # ===================
 #       Pruebas
 # ===================
 # LanguageProcessing.Porter('prueba.txt')
 # print 'Hola' if LanguageProcessing.IsStopWord('a') else 'Adios'
-LanguageProcessing.CleanHTML('prueba.html')
-#LanguageProcessing.Porter('c_prueba.html.txt')
+print(LanguageProcessing.CleanHTML('prueba.html'))
