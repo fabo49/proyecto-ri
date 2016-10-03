@@ -62,7 +62,10 @@ class LanguageProcessing(object):
         :param path: La ruta del documento a eliminar los tags.
         :return: Una hilera que contiene el texto del archivo HTML sin tags.
         """
-        return BeautifulSoup(open(path), "lxml").get_text()
+        clean_file = BeautifulSoup(open(path), "lxml")
+        for script in clean_file.find_all('script'):
+            script.extract()
+        return clean_file.get_text()
 
     @staticmethod
     def Tokenize(file, eliminate_stop_words):
