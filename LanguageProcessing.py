@@ -32,20 +32,18 @@ class LanguageProcessing(object):
     """
 
     @staticmethod
-    def Porter(path):
+    def Porter(document):
         """
-        Metodo estatico que se encarga de normalizar y parsear un documento con el algoritmo de Porter
-        :param path: La ruta del documento a parsear
-        :return: Un archivo en la misma ruta y con el mismo nombre pero con el prefijo 'p_' donde esta el documento parseado con Porter
+        Metodo estatico que se encarga de normalizar y hacer stemming a un documento con el algoritmo de Porter
+        :param document: Un string con el archivo que desea hacerle stemming.
+        :return: Una hilera con el documento parseado con Porter
         """
         porter_stemmer = PorterStemmer()
-        doc = open(path, 'r')
-        result = open('p_'+path, 'a')
-        for line in doc:
-            for word in line.split(' '):    # Se ocupa usar split(' ') para que solo haga split por espacios, si se usa split() tambien cuenta los cambios de linea
-                result.write(porter_stemmer.stem(word).lower()) if word.endswith('\n') else result.write(porter_stemmer.stem(word).lower()+' ')
-        doc.close()
-        result.close()
+        result = ""
+        words = document.split(' ')
+        for word in words:
+            result += porter_stemmer.stem(word).lower() if word.endswith('\n') else porter_stemmer.stem(word).lower()+' '
+        return result
 
     @staticmethod
     def IsStopWord(word):
@@ -71,4 +69,5 @@ class LanguageProcessing(object):
 # ===================
 # LanguageProcessing.Porter('prueba.txt')
 # print 'Hola' if LanguageProcessing.IsStopWord('a') else 'Adios'
-print(LanguageProcessing.CleanHTML('prueba.html'))
+parsed = LanguageProcessing.CleanHTML('prueba.html')
+print LanguageProcessing.Porter(parsed)
