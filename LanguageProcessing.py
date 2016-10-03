@@ -13,6 +13,7 @@ Tarea programada 1
 
 from nltk.stem.porter import *   # Modulo con el algoritmo de Porter para hacer stemming
 from stop_words import get_stop_words   # Modulo con stop_words en distintos idiomas
+from bs4 import BeautifulSoup   # Para parsear documentos HTML
 import re       # Para eliminar los tags de html del texto
 
 # ===================================================
@@ -23,10 +24,11 @@ class LanguageProcessing(object):
     """
     Clase que contiene los metodos necesarios para realizar el procesamiento linguistico de documentos.
 
-    Requiere que los modulos nltk y stop-words esten instalados, para instalarlos ingrese los siguientes comandos en
+    Requiere que los modulos nltk, BeautifulSoup y stop-words esten instalados, para instalarlos ingrese los siguientes comandos en
     la terminal:
         * sudo pip install stop-words
         * sudo pip install -U nltk
+        * sudo pip install beautifulsoup4
     """
 
     @staticmethod
@@ -59,15 +61,13 @@ class LanguageProcessing(object):
     def CleanHTML(path):
         """
         Metodo estatico que se encarga de eliminar todos los tags de html de un documento.
-        :param path: La ruta del documento a eliminar los tags.
-        :return: Un archivo con los tags eliminados.
+        :param html_doc: La ruta del documento a eliminar los tags.
+        :return: Un archivo con los tags eliminados con el nombre "c_NOMBREARCHIVO.txt".
         """
-        doc = open(path, 'r')
-        result = open('c_'+path+'.txt','a')
-        cleaner = re.compile('<.*?>')
-        for line in doc:
-            result.write(re.sub(cleaner,'', line))
-        doc.close()
+        soup = BeautifulSoup(open(path))
+        result = open('c_'+path+'.txt', 'w')
+        print(soup.get_text())
+        result.write(soup.get_text())
         result.close()
 
 # ===================
@@ -75,4 +75,5 @@ class LanguageProcessing(object):
 # ===================
 # LanguageProcessing.Porter('prueba.txt')
 # print 'Hola' if LanguageProcessing.IsStopWord('a') else 'Adios'
-LanguageProcessing.CleanHTML('index.html')
+LanguageProcessing.CleanHTML('prueba.html')
+#LanguageProcessing.Porter('c_prueba.html.txt')
