@@ -69,5 +69,5 @@ class LanguageProcessing(object):
 # ===================
 # LanguageProcessing.Porter('prueba.txt')
 # print 'Hola' if LanguageProcessing.IsStopWord('a') else 'Adios'
-parsed = LanguageProcessing.CleanHTML('prueba.html')
-print LanguageProcessing.Porter(parsed)
+# parsed = LanguageProcessing.CleanHTML('prueba.html')
+# print LanguageProcessing.Porter(parsed)
