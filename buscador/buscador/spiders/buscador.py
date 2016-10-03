@@ -5,22 +5,24 @@ import os.path
 
 class Buscador(CrawlSpider):
     name = 'buscador'
-    allowed_domains = ['ucr.ac.cr']
+    allowed_domains = [
+        'www.bbc.co.uk',
+        "www.bbc.com/",
+    ]
     start_urls = [
-        'http://www.ecci.ucr.ac.cr/',
-        'http://www.ci.ucr.ac.cr/',
-        'http://www.ucr.ac.cr/',
-        'http://www.universidadescr.com/',
+        'http://www.bbc.co.uk',
+        "http://www.bbc.com/",
     ]
 
     rules = (
         Rule(SgmlLinkExtractor(), callback='parse_url', follow=False), 
     )
 
+    # Guarda los docs con el nombre de la dir donde se obtuvo. Se utiliza un convenio de nombre '-' por '/'
     def parse_url(self, response):
 	# Falta arreglar el nombre de los archivos ya guardado.
     	page = response.url.split('/')
-        name_Page = '-'.join(page)
+        name_Page = "|".join(page)
         filename = 'docs/%s.html' % name_Page
     	with open(filename, 'wb') as f:
     		f.write(response.body)
