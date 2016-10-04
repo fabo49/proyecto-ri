@@ -5,3 +5,4 @@ prueba.txt
 p_prueba.txt
 *.html
 *.bin
+*pyc
