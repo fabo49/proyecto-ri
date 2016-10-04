@@ -1,0 +1,8 @@
+# Se ignoran los archivos propios de PyCharm
+.idea
+
+prueba.txt
+p_prueba.txt
+*.html
+*.bin
+*pyc
