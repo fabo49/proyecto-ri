@@ -8,10 +8,11 @@ Tarea programada 1
 '''
 
 # Se asume que desde donde se invoca es donde se maneja el tamano del buffer. [Como cuando se llena la memoria]
-def SPIMI(token_stream, dic_name):
+def SPIMI(token_stream, name):
 	# Se utiliza open para crear el archivo donde va a estar el dictionary_file
-	index_file = open("index.bin","wb")
-	dic_file = "dictionary_%s.bin" % dic_name
+	ind_name = "index_%s.bin" % name
+	index_file = open(ind_name,"wb")
+	dic_file = "dictionary_%s.bin" % name
 	with open(dic_file,"wb") as dictionary_file:
 		dictionary = {}
 		for token in token_stream:
