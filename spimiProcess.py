@@ -29,13 +29,13 @@ def SPIMI(token_stream, name):
 		sorted_terms = sorted(dictionary, key=lambda pair: pair[0], reverse=False)
 		for sorted_term in sorted_terms:
 			pair_is = (sorted_term, dictionary[sorted_term])
-			print('term: %s, doc_id: %s' % pair_is)
+			#print('term: %s, doc_id: %s' % pair_is)
 
 		writeBlockToDisk(sorted_terms, index_file)
 		writeBlockToDisk(dictionary, dictionary_file)
 	index_file.close()
 	dictionary_file.close()
-	print 'Finaliza SPIMI'
+	#print 'Finaliza SPIMI'
 
 def writeBlockToDisk(file, output):
 	# pickle permite guardar estructuras como binarios, para luego recuperarlas igual. cPickle es mas eficiente.
