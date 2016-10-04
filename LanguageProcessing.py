@@ -79,13 +79,16 @@ class LanguageProcessing(object):
         for token in tokens:
             if token not in result:
                 result.append('' if eliminate_stop_words and LanguageProcessing.IsStopWord(token) else token.lower())
-        return filter(None, result)     # Elimina los campos vacios de la lista
+        return LanguageProcessing.Porter(filter(None, result))   # Elimina los campos vacios de la lista y se aplica el algoritmo de Porter
 
 # ===================
 #       Pruebas
 # ===================
-# LanguageProcessing.Porter('prueba.txt')
-# print 'Hola' if LanguageProcessing.IsStopWord('a') else 'Adios'
-# parsed = LanguageProcessing.CleanHTML('prueba.html')
-# tokenized = LanguageProcessing.Tokenize(parsed, True)
-# print LanguageProcessing.Porter(tokenized)
+#def Test():
+#    clean_file = LanguageProcessing.CleanHTML("reactive.html")  # Se eliminan los tags de html del archivo para extraer el texto
+#    tokens = LanguageProcessing.Tokenize(clean_file, True)      # Se hace la lista de tokens SIN stop words y se aplica el algoritmo de Porter para stemming de los tokens
+#    print "\nHay "+str(len(tokens))+" tokens en la lista sin stop words.\n"
+#    tokens = LanguageProcessing.Tokenize(clean_file, False)     # Se hace la lista de tokens CON stop words y se aplica el algoritmo de Porter para stemming de los tokens
+#    print "Hay "+str(len(tokens))+" tokens en la lista con stop words.\n"
+
+#Test()  # Se ejecutan las pruebas
