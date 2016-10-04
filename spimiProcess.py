@@ -8,9 +8,11 @@ Tarea programada 1
 '''
 
 # Se asume que desde donde se invoca es donde se maneja el tamano del buffer. [Como cuando se llena la memoria]
-def SPIMI(token_stream):
-	# Se utiliza open para crear el archivo donde va a estar el output_file
-	with open("dictionary.bin","wb") as output_file:
+def SPIMI(token_stream, dic_name):
+	# Se utiliza open para crear el archivo donde va a estar el dictionary_file
+	index_file = open("index.bin","wb")
+	dic_file = "dictionary_%s.bin" % dic_name
+	with open(dic_file,"wb") as dictionary_file:
 		dictionary = {}
 		for token in token_stream:
 			# pair[0] => token, pair[1] => doc_id
@@ -28,9 +30,10 @@ def SPIMI(token_stream):
 			pair_is = (sorted_term, dictionary[sorted_term])
 			print('term: %s, doc_id: %s' % pair_is)
 
-		writeBlockToDisk(sorted_terms, output_file)
-		writeBlockToDisk(dictionary, output_file)
-	output_file.close()
+		writeBlockToDisk(sorted_terms, index_file)
+		writeBlockToDisk(dictionary, dictionary_file)
+	index_file.close()
+	dictionary_file.close()
 	print 'Finaliza SPIMI'
 
 def writeBlockToDisk(file, output):

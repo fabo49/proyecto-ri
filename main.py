@@ -14,6 +14,8 @@ class doc():
 	url = ""
 
 def main():
+	# Saber cual diccionario voy a crear. Cada vez que se llena la memoria se crea un nuevo file
+	dic = 0
   # Recibe los tokens para procesar
   	# docs  = documentos
   	docs = os.walk(...)
@@ -31,6 +33,7 @@ def main():
 
 	while len(block)!=0
 		block += []
-		try: total = SPIMI([block.pop() for x in xrange(max_memory)])
+		try: total = SPIMI([block.pop() for x in xrange(max_memory)],dic)
+		dic += 1
 	except IndexError as ie: 
 		pass

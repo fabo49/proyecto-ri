@@ -11,6 +11,9 @@ def main():
 		pair = (token,doc_id)
 		block.append(pair)
 
-	SPIMI(block)
+	x = 0
+	while x < 5:
+		SPIMI(block,x)
+		x += 1
 
 main()
