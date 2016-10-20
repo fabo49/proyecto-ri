@@ -10,9 +10,11 @@ Tarea programada 1
 # Se asume que desde donde se invoca es donde se maneja el tamano del buffer. [Como cuando se llena la memoria]
 def SPIMI(token_stream, name):
 	# Se utiliza open para crear el archivo donde va a estar el dictionary_file
-	ind_name = "index_%s.bin" % name
+	#ind_name = "index_%s.bin" % name
+	ind_name = "indices/index_%s.txt" %name
 	index_file = open(ind_name,"wb")
-	dic_file = "dictionary_%s.bin" % name
+	#dic_file = "dictionary_%s.bin" % name
+	dic_file = "diccionarios/dictionary_%s.txt" %name
 	with open(dic_file,"wb") as dictionary_file:
 		dictionary = {}
 		for token in token_stream:
@@ -31,25 +33,49 @@ def SPIMI(token_stream, name):
 			pair_is = (sorted_term, dictionary[sorted_term])
 			#print('term: %s, doc_id: %s' % pair_is)
 
-		writeBlockToDisk(sorted_terms, index_file)
-		writeBlockToDisk(dictionary, dictionary_file)
+		writeBlockToDisk(sorted_terms, index_file, 1)
+		writeBlockToDisk(dictionary, dictionary_file, 0)
+
 	index_file.close()
 	dictionary_file.close()
 	#print 'Finaliza SPIMI'
 
-def writeBlockToDisk(file, output):
-	# pickle permite guardar estructuras como binarios, para luego recuperarlas igual. cPickle es mas eficiente.
-	try: from cPickle import HIGHEST_PROTOCOL, dump
-	except: from pickle import HIGHEST_PROTOCOL, dump
+def writeBlockToDisk(file, output, case):
+	if case:
+		for f in file:
+			f = f.encode('utf-8')
+			output.write(f)
+			output.write("\n")
+	else:
+		if not case:
+			for k,v in file.items():
+				key = k.encode('utf-8')
+				posting_list = v
+				output.write(key)
+				string = key
+				for p in posting_list:
+					value = str(p).encode('utf-8')
+					output.write(",")
+					string += ","
+					output.write(value)
+					string += value
+				print string
+				output.write("\n")
 
-	dump(file, output, HIGHEST_PROTOCOL)
 
-# Metodo que obtiene de un archivo la estructura original del mismo.
-def readBlockFromDisk(input_doc):	
-	try: from cPickle import load
-	except: from pickle import load
+# def writeBlockToDisk(file, output):
+# 	# pickle permite guardar estructuras como binarios, para luego recuperarlas igual. cPickle es mas eficiente.
+# 	try: from cPickle import HIGHEST_PROTOCOL, dump
+# 	except: from pickle import HIGHEST_PROTOCOL, dump
 
-	with open(input_doc, 'rb') as inp:
-		file = load(inp)
-	inp.close()
-	return file
+# 	dump(file, output, HIGHEST_PROTOCOL)
+
+# # Metodo que obtiene de un archivo la estructura original del mismo.
+# def readBlockFromDisk(input_doc):	
+# 	try: from cPickle import load
+# 	except: from pickle import load
+
+# 	with open(input_doc, 'rb') as inp:
+# 		file = load(inp)
+# 	inp.close()
+# 	return file
