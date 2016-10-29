@@ -1,6 +1,12 @@
 # Se ignoran los archivos propios de PyCharm
 .idea
 
+diccionarios/
+indices/
+indice_tmp.txt
+diccionario_tmp.txt
+dictionary.txt
+index.txt
 prueba.txt
 p_prueba.txt
 *.html
