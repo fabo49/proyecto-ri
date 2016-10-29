@@ -4,11 +4,11 @@ from time import time
 def Experiment(postings, stop_words):
     block = postings
     file_name = 0
-    max_mem = 10
+    max_mem = 1400
     start_time = time()
     while len(block) != 0:
         try:
-            if len(block) < 10:
+            if len(block) < max_mem:
                 leng = len(block)
             else:
                 leng = max_mem
