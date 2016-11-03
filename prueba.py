@@ -12,7 +12,7 @@ def Experiment(postings, stop_words):
                 leng = len(block)
             else:
                 leng = max_mem
-            SPIMI([block.pop() for x in xrange(leng)], file_name)
+            SPIMI([block.pop(0) for x in xrange(leng)], file_name)
         except IndexError as ie:
             pass
         file_name += 1
@@ -29,11 +29,13 @@ def Test():
     postings = []
     postings_2 = []
     for token in tokens_1_ssw:
+        print "%s" %token
         postings.append((token, 1))
 
-    for token in tokens_2_ssw:
+    for token in tokens_2_ssw:        
+        print "%s" %token
         postings_2.append((token, 2))
-
+        
     postings_sw = postings + postings_2
     Experiment(postings_sw, True)
     postings = []
@@ -42,6 +44,7 @@ def Test():
         postings.append((token, 1))
 
     for token in tokens_2_csw:
+        postings_2.append((token, 2))
         postings_2.append((token, 2))
 
     postings_csw = postings + postings_2
