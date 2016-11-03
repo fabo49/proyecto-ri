@@ -86,9 +86,11 @@ class LanguageProcessing(object):
 # ===================
 #def Test():
 #    clean_file = LanguageProcessing.CleanHTML("reactive.html")  # Se eliminan los tags de html del archivo para extraer el texto
+#    print clean_file
 #    tokens = LanguageProcessing.Tokenize(clean_file, True)      # Se hace la lista de tokens SIN stop words y se aplica el algoritmo de Porter para stemming de los tokens
+#    a = 1
 #    print "\nHay "+str(len(tokens))+" tokens en la lista sin stop words.\n"
 #    tokens = LanguageProcessing.Tokenize(clean_file, False)     # Se hace la lista de tokens CON stop words y se aplica el algoritmo de Porter para stemming de los tokens
 #    print "Hay "+str(len(tokens))+" tokens en la lista con stop words.\n"
 
-#Test()  # Se ejecutan las pruebas
+# Test()  # Se ejecutan las pruebas

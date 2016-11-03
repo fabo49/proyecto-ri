@@ -81,20 +81,114 @@ def writeDicToDisk(file_1, file_2, output):
 			output.write("\n")
 			act += 1
 
+def FileToList(file):
+    '''
+    Metodo ayudante que convierte un archivo de texto con el indice en una lista.
+    :param file: el archivo a convertir en lista
+    :return: la lista de terminos
+    '''
+    lista = []
+    for line in file:
+        lista.append(line)
+    return lista
 
-# def writeBlockToDisk(file, output):
-# 	# pickle permite guardar estructuras como binarios, para luego recuperarlas igual. cPickle es mas eficiente.
-# 	try: from cPickle import HIGHEST_PROTOCOL, dump
-# 	except: from pickle import HIGHEST_PROTOCOL, dump
+def FileToDictionary(file):
+    '''
+    Metodo ayudante que convierte un archivo de texto con el diccionario a un diccionario de python
+    :param file: el archivo que desea convertir
+    :return: un array asociativo con el key el termino y de value una lista con los ids de los documentos
+    '''
+    dictionary = {}
+    for line in file:
+        posting = line.split('}k(*')
+        dictionary[posting.pop(0)] = posting
+    return dictionary
 
-# 	dump(file, output, HIGHEST_PROTOCOL)
+def EmpyFiles():
+    '''
+    Crea los archivos vacios que va a utilizar para guardar el indice y diccionario completo
+    :return: un archivo "index.txt" vacio y otro archivo "dictionary.txt" vacio
+    '''
+    open('index.txt', 'w').close()
+    open('dictionary.txt', 'w').close()
 
-# # Metodo que obtiene de un archivo la estructura original del mismo.
-# def readBlockFromDisk(input_doc):	
-# 	try: from cPickle import load
-# 	except: from pickle import load
+def UpdateFiles(index, dictionary):
+    '''
+    Metodo que sustituye el contenido del indice y del diccionario por los valores actualizados
+    :param index: Lista con
+    :param dictionary:
+    :return:
+    '''
+    EmpyFiles()
 
-# 	with open(input_doc, 'rb') as inp:
-# 		file = load(inp)
-# 	inp.close()
-# 	return file
+    indice_final = open('index.txt', 'w')
+    for term in index:
+        indice_final.write(term)
+    indice_final.close()
+
+
+    diccionario_final = open('dictionary.txt', 'w')
+    for term, list in dictionary.items():
+        diccionario_final.write(term)
+        for post in list:
+            diccionario_final.write('}k(*'+ post.split()[0])
+        diccionario_final.write('\n')
+    diccionario_final.close()
+
+def MergeBlocksHelper(indice_actual, diccionario_actual):
+    '''
+    Metodo ayudante de MergeBlocks que se encarga de hacer el merge entre el diccionario completo y el que esta leyendo.
+    Necesita que existan los archivos "index.txt" y "dictionary.txt" en el directorio raiz
+    :param indice_actual: el indice del bloque actual.
+    :param diccionario_actual: el diccionario del bloque actual
+    :return:
+    '''
+
+    # Guarda el indice completo en una lista
+    indice = open('index.txt', 'r')
+    indice_final = FileToList(indice)
+    indice.close()
+
+    # Guarda el diccionario en un "diccionario" con un key y una lista de ids
+    diccionario = open('dictionary.txt', 'r')
+    diccionario_final = FileToDictionary(diccionario)
+    diccionario.close()
+
+    if not indice_final: # Primer caso que el indice completo esta vacio, nada mas copia el primer indice en el indice completo
+        indice = open('index.txt', 'a')
+        for term in indice_actual:
+            indice.write(term)
+        indice.close()
+
+        diccionario = open('dictionary.txt', 'a')
+        for posting in diccionario_actual:
+            diccionario.write(posting)
+        diccionario.close()
+    else:
+        diccionario_tmp = FileToDictionary(diccionario_actual)   # Convierte el diccionario actual en un array asociativo
+        for term in indice_actual:
+            if term in indice_final: # El termino esta en el indice?
+                diccionario_final[term].extend(diccionario_tmp[term.split()[0]])
+            else:   # No esta en el indice
+                term = term.split()[0]  # Elimina el \n
+                indice_final.append(term)    # Agrego el termino al indice
+                diccionario_final[term] = diccionario_tmp[term]  # Agrego su posting list
+        UpdateFiles(sorted(indice_final), diccionario_final) # Actualiza los documentos index.txt y dictionary.ext
+
+    indice_actual.close()
+    diccionario_actual.close()
+
+def MergeBlocks():
+    '''
+    Metodo que se encarga de hacerle el merge de todos los bloques para crear un solo indice.
+    :return: Un archivo con el indice completo
+    '''
+    EmpyFiles()
+    index = 0
+    for indice in os.listdir('indices'):
+        MergeBlocksHelper(open("indices/"+indice, 'r'), open("diccionarios/dictionary_" + str(index) + ".txt", 'r'))
+        index += 1
+
+
+# Prueba
+# MergeBlocks()
