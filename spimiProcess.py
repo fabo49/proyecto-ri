@@ -168,7 +168,8 @@ def MergeBlocksHelper(indice_actual, diccionario_actual):
         diccionario_tmp = FileToDictionary(diccionario_actual)   # Convierte el diccionario actual en un array asociativo
         for term in indice_actual:
             if term in indice_final: # El termino esta en el indice?
-                diccionario_final[term].extend(diccionario_tmp[term.split()[0]])
+                term = term.split()[0]
+                diccionario_final[term].extend(diccionario_tmp[term])
             else:   # No esta en el indice
                 term = term.split()[0]  # Elimina el \n
                 indice_final.append(term)    # Agrego el termino al indice
@@ -191,4 +192,4 @@ def MergeBlocks():
 
 
 # Prueba
-# MergeBlocks()
+MergeBlocks()
