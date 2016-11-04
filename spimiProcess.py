@@ -7,6 +7,7 @@ Tarea programada 1
 @author: Fabian Rodriguez B25695
 '''
 import os
+from Helpers import FileToList, FileToDictionary
 
 # Se asume que desde donde se invoca es donde se maneja el tamano del buffer. [Como cuando se llena la memoria]
 def SPIMI(token_stream, name):
@@ -80,29 +81,6 @@ def writeDicToDisk(file_1, file_2, output):
 			output.write(value)
 			output.write("\n")
 			act += 1
-
-def FileToList(file):
-    '''
-    Metodo ayudante que convierte un archivo de texto con el indice en una lista.
-    :param file: el archivo a convertir en lista
-    :return: la lista de terminos
-    '''
-    lista = []
-    for line in file:
-        lista.append(line)
-    return lista
-
-def FileToDictionary(file):
-    '''
-    Metodo ayudante que convierte un archivo de texto con el diccionario a un diccionario de python
-    :param file: el archivo que desea convertir
-    :return: un array asociativo con el key el termino y de value una lista con los ids de los documentos
-    '''
-    dictionary = {}
-    for line in file:
-        posting = line.split('}k(*')
-        dictionary[posting.pop(0)] = posting
-    return dictionary
 
 def EmpyFiles():
     '''
