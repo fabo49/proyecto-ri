@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <meta charset="UTF-8">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>FindEx</title>
+
+    <style>
+        /* icon prefix color */
+        .input-field .prefix {
+            color: #616161;
+        }
+
+        .input-field {
+            height: 10px;
+            font-size: 11px;
+        }
+
+        .input-field input[type=text] {
+            border-bottom: 1px solid #616161;
+            box-shadow: 0 1px 0 0 #616161;
+            color: #212121 !important;
+        }
+
+        /* label underline focus color */
+        .input-field input[type=text]:focus {
+            border-bottom: 1px solid #4caf50;
+            box-shadow: 0 1px 0 0 #4caf50;
+            color: #212121;
+        }
+
+        /* icon prefix focus color */
+        .input-field .prefix.active {
+            color: #4caf50;
+        }
+
+        .button-collapse {
+            color: #616161;
+        }
+
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            // Initialize collapse button
+            $(".button-collapse").sideNav();
+
+            // Muestra la barra de búsqueda
+            $('#button-search').click(function () {
+                var search_bar = $('#search-bar');
+                if (search_bar.is(":hidden")) {
+                    $('#search-bar').slideDown("slow");
+                    $('#query').focus();
+                } else {
+                    search_bar.slideUp("slow");
+                    $('#query').blur();
+                }
+            });
+
+            $('#button-close').click(function () {
+                $('#search-bar').slideUp("slow");
+                $('#query').blur();
+            });
+
+
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal').modal();
+
+        });
+
+    </script>
+</head>
+<body>
+<nav class="white">
+    <div class="nav-wrapper">
+        <div class="container">
+            <a href="/" class="brand-logo grey-text center">FindEx</a>
+            <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="left">
+                <li class="hide-on-med-and-down"><a href="#modal_about" class="grey-text">Acerca de</a></li>
+            </ul>
+            <ul class="right">
+                <li><a href="#" class="grey-text" id="button-search"><i
+                        class="material-icons">search</i></a>
+                </li>
+            </ul>
+            <ul class="side-nav" id="mobile-menu">
+                <li>
+                    <div class="userView">
+                        <div class="background">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTUkieo7hjVNjokQtaOn_2ybJqvnmtDU42NLpJLk0XoLj-Cewmqg"
+                                 style="width:100%; height: auto;">
+                        </div>
+                        <h4>FindEx</h4>
+                        <p>El buscador facil y seguro</p>
+                    </div>
+                </li>
+                <li><a href="#modal_about">Acerca de</a></li>
+                <li>
+                    <div class="divider"></div>
+                </li>
+                <li><a class="subheader">Elaborado para el curso R.I de la UCR</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<nav id="search-bar" class="white" style="display:none;">
+    <div class="nav-wrapper">
+        <form action="">
+            <div class="input-field">
+                <input id="query" type="search" name="query" value="{{query}}">
+                <label for="query" id="label-search"><i class="material-icons grey-text darken-4">search</i></label>
+                <i class="material-icons" id="button-close">close</i>
+            </div>
+        </form>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <p class="grey-text">
+                <small>Duración de la búsqueda: {{time}} microsegundos</small>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Informacion -->
+<div id="modal_about" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4>Acerca de FindEx</h4>
+        <p>FindEx es un buscador desarrollado para un curso de recuperación de la información de la Universidad de Costa
+            Rica. El buscador permite hacer búsquedas en el sitio <a
+                    href="http://www.londonmet.ac.uk" target="_blank">londonmet.ac.uk</a> donde la mayor parte del
+            contenido es en
+            ingles.</p>
+        <h5>Desarrolladores</h5>
+        <ul>
+            <li>Fabián Rodríguez <a href="https://github.com/fabo49" target="_blank">GitHub&nbsp;<i
+                    class="fa fa-external-link" aria-hidden="true"></i>
+
+            </a></li>
+            <li>Brayan Salas <a href="https://github.com/bsalas0694" target="_blank">GitHub&nbsp;<i
+                    class="fa fa-external-link" aria-hidden="true"></i>
+
+            </a></li>
+        </ul>
+        <p>El proyecto es totalmente libre para que colabore con él o para que lo estudie y entienda su funcionamiento.
+            Este programa se encuentra en GitHub y lo puede descargar por medio del siguiente <a
+                    href="https://github.com/fabo49/proyecto-ri" target="_blank">enlace <i class="fa fa-github"
+                                                                                           aria-hidden="true"></i>
+                .</a></p>
+
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Cerrar</a>
+    </div>
+</div>
+</body>
+</html>
