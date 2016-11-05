@@ -76,7 +76,10 @@
 
             $('#button-close').click(function () {
                 $('#search-bar').slideUp("slow");
-                $('#query').blur();
+            });
+
+            $('#query').blur(function () {
+                $('#search-bar').slideUp("slow");
             });
 
 
@@ -116,7 +119,7 @@
                 <li>
                     <div class="divider"></div>
                 </li>
-                <li><a class="subheader">Elaborado para el curso R.I de la UCR</a></li>
+                <li><a class="subheader">Elaborado para el curso CI-2414 de la UCR</a></li>
             </ul>
         </div>
     </div>
