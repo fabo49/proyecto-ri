@@ -4,6 +4,19 @@ Este repositorio contiene el proyecto del curso CI-2414 de la Universidad de Cos
 
 El proyecto consta de 3 secciones que se iran trabajando a lo largo del curso.
 
+## Requerimientos
+
+Para el correcto funcionamiento del sistema es necesario que instale los siguientes módulos de Python:
+
+```bash
+    $ sudo pip install stop-words
+    $ sudo pip install -U nltk
+    $ sudo pip install beautifulsoup4
+    $ sudo pip install lxml
+    $ sudo pip install scrapy
+    $ sudo pip install Flask
+```
+
 ## Primera parte
 
 El objetivo de esta tarea es desarrollar y configurar los elementos básicos para la construcción de índices en
