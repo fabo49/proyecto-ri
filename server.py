@@ -10,8 +10,8 @@ Tarea programada 1
 # import os # Para correr en C9
 from flask import Flask, render_template, request
 from datetime import datetime
-from Controller import *
 import Documento
+from Helpers import *
 
 app = Flask(__name__)
 
@@ -24,16 +24,19 @@ def index():
 @app.route('/results/')
 @app.route('/results/', methods=['GET'])
 def results():
-    t_inicial = datetime.now().microsecond
+    query = request.args.get('query')
+    t_inicial = datetime.now().microsecond  # Empieza a tomar el tiempo
+
     # Hacer la logica de la busqueda
-    documents_list = Controller.CreateDocumentList(10)
-    t_final = datetime.now().microsecond - t_inicial
-    return render_template('results.html', query=request.args.get('query'), time=t_final, documents=documents_list)
+
+    documents_list = Helpers.ResultsList([5, 999, 45, 898, 1024, 778, 3, 105])
+    t_final = datetime.now().microsecond - t_inicial  # Hace el calculo del tiempo que le tomo hacer la consulta
+    return render_template('results.html', query=query, time=t_final, documents=documents_list)
 
 
 if __name__ == "__main__":
     # Aca hay que llamar el crawler, generar el indice y el diccionario
     # Para llamar al crawler y matarlo despues de cierto tiempo: http://stackoverflow.com/questions/14920384/stop-code-after-time-period
-
+    Helpers.MatrixDocuments()
     app.run(debug=True, port=5052)
     # app.run(debug=True,host=os.environ['IP'],port=int(os.environ['PORT'])) # Para correr en C9
