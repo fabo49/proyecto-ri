@@ -20,24 +20,32 @@ class Controller(object):
     '''
 
     @staticmethod
-    def CreateDocumentList():
+    def CreateDocumentList(cant_result):
         '''
         Clase que crea una lista con objetos Documento a partir de los archivos que recupero el crawler
+        :cant_result: cantidad de documentos a procesar, solo para las pruebas
         :return: Lista con objetos de tipo Documento
         '''
 
         id = 0
         document_list = []
         for document in os.listdir('docs'):
+            if id == cant_result:
+                break
             soup = BeautifulSoup(open('docs/' + document), "lxml")
-            document_tmp = Documento(id, str(document).replace('|', '/'), soup.title.string if soup.title else '')
+            description = ""
+            for meta in soup.head.find_all('meta'):
+                if 'name' in meta.attrs and 'content' in meta.attrs and meta.attrs['name'] == "description":
+                    description = meta.attrs['content']
+
+            document_tmp = Documento(id, str(document).replace('|', '/'), soup.title.string if soup.title else '',
+                                     description)
             document_list.append(document_tmp)
             id += 1
 
         return document_list
 
-
 # Pruebas
-#def Test():
+# def Test():
 #   list = Controller.GenerateIndex()
-#Test()
+# Test()

@@ -10,7 +10,8 @@ Tarea programada 1
 # import os # Para correr en C9
 from flask import Flask, render_template, request
 from datetime import datetime
-import Controller
+from Controller import *
+import Documento
 
 app = Flask(__name__)
 
@@ -25,10 +26,9 @@ def index():
 def results():
     t_inicial = datetime.now().microsecond
     # Hacer la logica de la busqueda
-
-
+    documents_list = Controller.CreateDocumentList(10)
     t_final = datetime.now().microsecond - t_inicial
-    return render_template('results.html', query=request.args.get('query'), time=t_final)
+    return render_template('results.html', query=request.args.get('query'), time=t_final, documents=documents_list)
 
 
 if __name__ == "__main__":
