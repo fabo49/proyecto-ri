@@ -7,15 +7,15 @@ Tarea programada 1
 @author: Fabian Rodriguez B25695
 '''
 
-class Resultado(object):
+class Documento(object):
     '''
-    Clase que se utiliza para crear objetos tipo Resultado con los siguientes atributos:
+    Clase que se utiliza para crear objetos tipo Documento con los siguientes atributos:
         * id: identificador unico
-        * url: url del resultado
-        * title: titulo de la pagina del resultado
+        * url: url del documento
+        * title: titulo de la pagina del documento
     '''
 
-    def __init__(self, id, url, title=""):
+    def __init__(self, id="", url="", title=""):
         '''
         Constructor de la clase.
         '''
@@ -45,7 +45,7 @@ class Resultado(object):
 
     def PrintResult(self):
         '''
-        Metodo que imprime la informacion del objeto resultado para control.
+        Metodo que imprime la informacion del objeto documento para control.
         :return: Imprime los atributos del resultado.
         '''
         print "-- [DEBUG] --"
