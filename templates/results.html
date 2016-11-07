@@ -74,6 +74,17 @@
                 }
             });
 
+            $('#button-search-mobile').click(function () {
+                var search_bar = $('#search-bar');
+                if (search_bar.is(":hidden")) {
+                    $('#search-bar').slideDown("slow");
+                    $('#query').focus();
+                } else {
+                    search_bar.slideUp("slow");
+                    $('#query').blur();
+                }
+            });
+
             $('#button-close').click(function () {
                 $('#search-bar').slideUp("slow");
             });
@@ -99,7 +110,7 @@
             <ul class="left">
                 <li class="hide-on-med-and-down"><a href="#modal_about" class="grey-text">Acerca de</a></li>
             </ul>
-            <ul class="right">
+            <ul class="right hide-on-med-and-down">
                 <li><a href="#" class="grey-text" id="button-search"><i
                         class="material-icons">search</i></a>
                 </li>
@@ -107,9 +118,7 @@
             <ul class="side-nav" id="mobile-menu">
                 <li>
                     <div class="userView">
-                        <div class="background">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTUkieo7hjVNjokQtaOn_2ybJqvnmtDU42NLpJLk0XoLj-Cewmqg"
-                                 style="width:100%; height: auto;">
+                        <div class="background teal darken-2">
                         </div>
                         <h4>FindEx</h4>
                         <p>El buscador facil y seguro</p>
@@ -143,6 +152,12 @@
             </p>
         </div>
     </div>
+</div>
+
+<div class="fixed-action-btn hide-on-large-only">
+    <a class="btn-floating teal waves-effect waves-light btn-large" id="button-search-mobile">
+        <i class="material-icons">search</i>
+    </a>
 </div>
 
 
