@@ -6,7 +6,8 @@ from scrapy.item import Item, Field
 import os.path
 import re
 
-class Buscador(CrawlSpider):
+class Buscador(CrawlSpider):    
+    if not os.path.exists("../docs"): os.makedirs("../docs")
     name = 'buscador'
     request_timeout = 120
     depth_limit = 4
@@ -25,7 +26,7 @@ class Buscador(CrawlSpider):
     def parse_url(self, response):
     	page = response.url.split('/')
         name_Page = "|".join(page)
-        filename = 'docss/%s.html' % name_Page
+        filename = '../docs/%s.html' % name_Page
     	with open(filename, 'wb') as f:
     		f.write(response.body)
     		self.log('Archivo %s guardado satisfactoriamente' % filename)

@@ -67,7 +67,7 @@ class LanguageProcessing(object):
         return clean_file.get_text()
 
     @staticmethod
-    def Tokenize(file, eliminate_stop_words):
+    def Tokenize(file, eliminate_stop_words=False):
         """
         Metodo que se encarga de normalizar el documento (pasando a lowercase) y elimina las stop_words si el usuario lo pide.
         :param file: String con el archivo que se va a tokenizar.

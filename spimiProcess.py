@@ -7,7 +7,7 @@ Tarea programada 1
 @author: Fabian Rodriguez B25695
 '''
 import os
-from Helpers import FileToList, FileToDictionary
+from HelpMethods import *
 
 # Se asume que desde donde se invoca es donde se maneja el tamano del buffer. [Como cuando se llena la memoria]
 def SPIMI(token_stream, name):
