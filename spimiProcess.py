@@ -8,13 +8,14 @@ Tarea programada 1
 '''
 import os
 
+
 class SpimiProcess(object):
     '''
     Clase encargada de realizar todos los pasos del algoritmo de SPIMI
     '''
 
     @staticmethod
-    def Spimi(posting_list, buffer_size):
+    def Spimi(posting_list, buffer_size, file_name):
         '''
         Metodo que hace el llamado a Spimi pero le define el tamano del buffer de la memoria.
         :param posting_list: La lista con los postings
@@ -22,10 +23,8 @@ class SpimiProcess(object):
         :return:
         '''
         postings = posting_list
-        file_name = 0
         while len(postings) != 0:
             try:
-                leng = 0
                 if len(postings) < buffer_size:
                     leng = len(postings)
                 else:
@@ -34,6 +33,7 @@ class SpimiProcess(object):
             except IndentationError as ie:
                 pass
             file_name += 1
+        return file_name
 
     @staticmethod
     def SpimiHelper(token_stream, name):
@@ -199,7 +199,7 @@ class SpimiProcess(object):
         SpimiProcess.EmpyFiles()
         index = 0
         for indice in os.listdir('indices'):
-            SpimiProcess.MergeBlocksHelper(open("indices/" + indice, 'r'),
+            SpimiProcess.MergeBlocksHelper(open("indices/index_" + str(index)+'.txt', 'r'),
                                            open("diccionarios/dictionary_" + str(index) + ".txt", 'r'))
             index += 1
 

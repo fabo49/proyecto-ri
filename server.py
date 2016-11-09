@@ -12,6 +12,7 @@ from flask import Flask, render_template, request
 from datetime import datetime
 import Documento
 from HelpMethods import *
+from scoring import *
 
 app = Flask(__name__)
 
@@ -26,8 +27,8 @@ def index():
 def results():
     query = request.args.get('query')
     t_inicial = datetime.now().microsecond  # Empieza a tomar el tiempo
-    tokenized_query = HelpMethods.TokenizeQuery(query)
-    documents_list = HelpMethods.ResultsList([5, 105, 120, 45])
+    results_list = Scoring.Score(query, 'index.txt', 'dictionary.txt', False)
+    documents_list = HelpMethods.ResultsList(results_list)
     t_final = datetime.now().microsecond - t_inicial  # Hace el calculo del tiempo que le tomo hacer la consulta
     return render_template('results.html', query=query, time=t_final, documents=documents_list)
 

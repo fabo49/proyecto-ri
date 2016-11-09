@@ -80,18 +80,22 @@ class HelpMethods(object):
         documents_list = HelpMethods.MatrixDocumentsToList()  # Convierte el archivo donde estan los id's de los documentos y el nombre a una lista
         final_list = []
         for id in id_list:
-            doc_id = id
+            doc_id = int(id)
             doc_name = documents_list[doc_id]
             soup = BeautifulSoup(open('docs/' + doc_name), "lxml")
             description = ""
-            for meta in soup.head.find_all('meta'):
-                if 'name' in meta.attrs and 'content' in meta.attrs and meta.attrs['name'] == "description":
-                    description = meta.attrs['content']
-                    description = description[:200] + (description[200:] and '..')
-                    break
-                else:
-                    paragraph = soup.find('p').get_text()
-                    description = paragraph[:200] + (paragraph[200:] and '..')
+            if soup.head:
+                for meta in soup.head.find_all('meta'):
+                    if 'name' in meta.attrs and 'content' in meta.attrs and meta.attrs['name'] == "description":
+                        description = meta.attrs['content']
+                        description = description[:200] + (description[200:] and '..')
+                        break
+                    else:
+                        paragraph = soup.find('p').get_text() if soup.find('p') else ''
+                        description = paragraph[:200] + (paragraph[200:] and '..')
+            else:
+                paragraph = soup.find('p').get_text() if soup.find('p') else ''
+                description = paragraph[:200] + (paragraph[200:] and '..')
             document_tmp = Documento(doc_id, str(doc_name).replace('.html', '', 1).replace('|', '/'),
                                      soup.title.string if soup.title else '',
                                      description)
@@ -116,6 +120,7 @@ class HelpMethods(object):
         '''
 
         doc_id = 0
+        file_name = 0
         for document in os.listdir('docs'):
             clean_doc = LanguageProcessing.CleanHTML(
                 'docs/' + document)  # Elimina tags de html y la seccion de javascript
@@ -123,6 +128,6 @@ class HelpMethods(object):
             posting_list = []
             for token in clean_doc:
                 posting_list.append((token, doc_id))
-            SpimiProcess.Spimi(posting_list, 1400)
+            file_name = SpimiProcess.Spimi(posting_list, 1400, file_name)
             doc_id += 1
         SpimiProcess.MergeBlocks()
