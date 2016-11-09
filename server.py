@@ -26,11 +26,12 @@ def index():
 @app.route('/results/', methods=['GET'])
 def results():
     query = request.args.get('query')
-    t_inicial = datetime.now().microsecond  # Empieza a tomar el tiempo
+    t_inicial = datetime.now().second  # Empieza a tomar el tiempo
     results_list = Scoring.Score(query, 'index.txt', 'dictionary.txt', False)
     documents_list = HelpMethods.ResultsList(results_list)
-    t_final = datetime.now().microsecond - t_inicial  # Hace el calculo del tiempo que le tomo hacer la consulta
-    return render_template('results.html', query=query, time=t_final, documents=documents_list)
+    t_final = datetime.now().second - t_inicial  # Hace el calculo del tiempo que le tomo hacer la consulta
+    return render_template('results.html', query=query, time=t_final, documents=documents_list,
+                           cant_results=len(documents_list))
 
 
 if __name__ == "__main__":
