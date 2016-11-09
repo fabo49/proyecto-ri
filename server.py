@@ -26,17 +26,15 @@ def index():
 @app.route('/results/', methods=['GET'])
 def results():
     query = request.args.get('query')
-    t_inicial = datetime.now().second  # Empieza a tomar el tiempo
+    t_inicial = datetime.now()  # Empieza a tomar el tiempo
     results_list = Scoring.Score(query, 'index.txt', 'dictionary.txt', False)
     documents_list = HelpMethods.ResultsList(results_list)
-    t_final = datetime.now().second - t_inicial  # Hace el calculo del tiempo que le tomo hacer la consulta
+    t_final = datetime.now() - t_inicial  # Hace el calculo del tiempo que le tomo hacer la consulta
     return render_template('results.html', query=query, time=t_final, documents=documents_list,
                            cant_results=len(documents_list))
 
 
 if __name__ == "__main__":
-    # Aca hay que llamar el crawler, generar el indice y el diccionario
-    # Para llamar al crawler y matarlo despues de cierto tiempo: http://stackoverflow.com/questions/14920384/stop-code-after-time-period
     HelpMethods.MatrixDocuments()
     print '[DEBUG]: Indexando...'
     HelpMethods.CreateIndexAndDictionary()

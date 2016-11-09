@@ -48,7 +48,7 @@ class Scoring(object):
         lnorm = []  # Length normalization
 
         # Caso de tener 2 o mas terminos
-        if len(query_tokenize) > 2:
+        if len(query_tokenize) >= 2:
 
             # Se buscan las listas de postings de los distintos terminos.
             for term in query_tokenize:
