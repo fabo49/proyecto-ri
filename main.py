@@ -18,7 +18,7 @@ def main():
 	dic = 0
   # Recibe los tokens para procesar
   	# docs  = documentos
-  	docs = os.walk(...)
+  	docs = os.walk( ...)
 	# tokens = getTokens(documento)
 	tokens = {['process',]}
 	# max_memory -> cantidad maxima de tokens "en memory"
@@ -34,6 +34,6 @@ def main():
 	while len(block)!=0
 		block += []
 		try: total = SPIMI([block.pop() for x in xrange(max_memory)],dic)
-		dic += 1
-	except IndexError as ie: 
-		pass
+			dic += 1
+		except IndexError as ie: 
+			pass
