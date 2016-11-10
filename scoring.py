@@ -90,7 +90,7 @@ class Scoring(object):
                 if mode: print "[debug]: Solo un termino valido: %s" % docsResult
             else:
                 # Es solo un termino de busqueda, devuelve todos los docs.
-                if query_tokenize[0] in index:
+                if query_tokenize and query_tokenize[0] in index:
                     for value in dictionary[query_tokenize[0]]:
                         docsResult.append(value.split(':')[0])
                     N = N - len(docsResult)
@@ -235,14 +235,13 @@ class Scoring(object):
         return results
 
 
-        # def Test():
-        #	query = "wild cats and dogs"
-        #	Scoring.Score(query,'index1.txt','dict1.txt',False)
-        # query = "cats"
-        # Scoring.Score(query,'index1.txt','dict1.txt',True)
-        # query = "dogs"
-        # Scoring.Score(query,'index1.txt','dict1.txt',True)
-        # query = "wild bulls and dogs educated"
-        # Scoring.Score(query,'index1.txt','dict1.txt',False)
-
-        # Test()
+		# def Test():
+			# query = "wild cats and dogs"
+			# Scoring.Score(query,'index1.txt','dict1.txt',False)
+			# query = "cats"
+			# Scoring.Score(query,'index1.txt','dict1.txt',True)
+			# query = "dogs"
+			# Scoring.Score(query,'index1.txt','dict1.txt',True)
+			# query = "wild bulls and dogs educated"
+			# Scoring.Score(query,'index1.txt','dict1.txt',False)
+		# Test()
