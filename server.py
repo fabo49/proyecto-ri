@@ -22,6 +22,17 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/newAd', methods=['POST'])
+def NewAd():
+    title = request.form['ad_title']
+    return render_template('adConfirm.html', ad_title=title)
+
+
+@app.route('/createAd/', methods=['GET'])
+def CreateAd():
+    return render_template('createAd.html')
+
+
 @app.route('/results/')
 @app.route('/results/', methods=['GET'])
 def results():
