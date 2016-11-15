@@ -60,6 +60,19 @@
             // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
             $('.modal').modal();
 
+            // para inicializar los tags del anuncio
+            $('.chips').material_chip();
+
+            // Para obtener los datos de los tags
+            $('.chips').on('chip.add', function (e, chip) {
+                var tags = $('.chips').material_chip('data');
+                var string_tags = "";
+                for (var key in tags) {
+                    string_tags += tags[key].tag + ',';
+                }
+                string_tags = string_tags.substring(0, string_tags.length - 1);
+                $('#ad_keywords').val(string_tags);
+            });
         });
 
     </script>
@@ -114,10 +127,11 @@
 <div class="container" style="margin-top:10px;">
     <div class="row">
         <div class="col s12 m10 offset-m1">
+            <h4 class="teal-text center">Crea tu anuncio</h4>
             <div class="card">
-                <form action="/newAd" method="post">
+                <form action="/newAd" method="post" id="create_ad_form">
                     <div class="card-content">
-                        <span class="card-title teal-text">Crea tu anuncio</span>
+                        <span class="card-title teal-text">Información del anuncio</span>
                         <div class="row">
                             <div class="input-field col s6">
                                 <input id="ad_title" type="text" name="ad_title" class="validate" required>
@@ -130,19 +144,28 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <textarea id="ad_description" name="ad_description" class="materialize-textarea"
+                                <textarea id="ad_description" name="ad_description"
+                                          class="materialize-textarea validate"
                                           length="200" required></textarea>
                                 <label for="ad_description">Descripción del sitio</label>
                             </div>
                         </div>
-                        <div class="divider"></div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <div class="chips" id="keywords"></div>
+                                <input type="text" name="ad_keywords" id="ad_keywords" class="hide">
+                                <label for="keywords">Palabras clave</label>
+                            </div>
+                        </div>
+                        <span class="card-title teal-text">Datos de pago</span>
                         <div class="row">
                             <div class="input-field col s6"></div>
                             <div class="input-field col s6"></div>
                         </div>
                     </div>
                     <div class="card-action">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Crear
+                        <button class="waves-effect waves-teal btn-flat" type="submit" name="action" id="ad_submit_btn">
+                            Crear
                             <i class="material-icons right">send</i>
                         </button>
                     </div>
