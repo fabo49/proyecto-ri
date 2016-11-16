@@ -56,6 +56,29 @@
                 $('#search-bar').slideUp("slow");
             });
 
+            // Inicializa el select
+            $('select').material_select();
+
+            $('#ad_payment_options').change(function () {
+                var value = $('#ad_payment_options').val();
+                switch (value) {
+                    case "1":
+                        // $30
+                        $('#ad_price').val("30");
+                        break;
+                    case "2":
+                        // $50
+                        $('#ad_price').val("50");
+                        break;
+                    case "3":
+                        // $80
+                        $('#ad_price').val("80");
+                        break;
+                    default:
+                        // Dejarlo en 0
+                }
+            });
+
 
             // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
             $('.modal').modal();
@@ -158,9 +181,26 @@
                             </div>
                         </div>
                         <span class="card-title teal-text">Datos de pago</span>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto consequuntur ducimus
+                            harum, impedit itaque magni minus, molestiae perspiciatis placeat quia quibusdam
+                            reprehenderit saepe sapiente veniam.</p>
+                        <br/>
                         <div class="row">
-                            <div class="input-field col s6"></div>
-                            <div class="input-field col s6"></div>
+                            <div class="input-field col s12 m6">
+                                <select name="ad_payment_options" id="ad_payment_options">
+                                    <option value="" disabled selected>Selecciona el plan adecuado</option>
+                                    <option value="1">200 visitas</option>
+                                    <option value="2">400 visitas</option>
+                                    <option value="3">600 visitas</option>
+                                </select>
+                                <label for="ad_payment_options">Opciones de planes</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <i class="material-icons prefix grey-text">attach_money</i>
+                                <input type="text" class="validate" id="ad_price" name="ad_price" value="0" required
+                                       disabled>
+                                <label for="ad_price">Precio en dólares</label>
+                            </div>
                         </div>
                     </div>
                     <div class="card-action">
