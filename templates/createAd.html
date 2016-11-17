@@ -21,6 +21,18 @@
     <title>FindEx | New Ad</title>
 
     <script>
+
+
+        function UpdateKeywords() {
+            var tags = $('.chips').material_chip('data');
+            var string_tags = "";
+            for (var key in tags) {
+                string_tags += tags[key].tag + ',';
+            }
+            string_tags = string_tags.substring(0, string_tags.length - 1);
+            $('#ad_keywords').val(string_tags);
+        }
+
         $(document).ready(function () {
             // Initialize collapse button
             $(".button-collapse").sideNav();
@@ -62,20 +74,21 @@
             $('#ad_payment_options').change(function () {
                 var value = $('#ad_payment_options').val();
                 switch (value) {
-                    case "1":
+                    case "200":
                         // $30
                         $('#ad_price').val("30");
                         break;
-                    case "2":
+                    case "300":
                         // $50
                         $('#ad_price').val("50");
                         break;
-                    case "3":
+                    case "600":
                         // $80
                         $('#ad_price').val("80");
                         break;
                     default:
                         // Dejarlo en 0
+                        $('#ad_price').val("0");
                 }
             });
 
@@ -88,16 +101,13 @@
 
             // Para obtener los datos de los tags
             $('.chips').on('chip.add', function (e, chip) {
-                var tags = $('.chips').material_chip('data');
-                var string_tags = "";
-                for (var key in tags) {
-                    string_tags += tags[key].tag + ',';
-                }
-                string_tags = string_tags.substring(0, string_tags.length - 1);
-                $('#ad_keywords').val(string_tags);
+                UpdateKeywords();
+            });
+
+            $('.chips').on('chip.delete', function (e, chip) {
+                UpdateKeywords();
             });
         });
-
     </script>
 </head>
 <body>
@@ -152,7 +162,7 @@
         <div class="col s12 m10 offset-m1">
             <h4 class="teal-text center">Crea tu anuncio</h4>
             <div class="card">
-                <form action="/newAd" method="post" id="create_ad_form">
+                <form action="/confirmAd" method="post" id="create_ad_form">
                     <div class="card-content">
                         <span class="card-title teal-text">Información del anuncio</span>
                         <div class="row">
@@ -189,9 +199,9 @@
                             <div class="input-field col s12 m6">
                                 <select name="ad_payment_options" id="ad_payment_options">
                                     <option value="" disabled selected>Selecciona el plan adecuado</option>
-                                    <option value="1">200 visitas</option>
-                                    <option value="2">400 visitas</option>
-                                    <option value="3">600 visitas</option>
+                                    <option value="200">200 visitas</option>
+                                    <option value="300">400 visitas</option>
+                                    <option value="600">600 visitas</option>
                                 </select>
                                 <label for="ad_payment_options">Opciones de planes</label>
                             </div>
@@ -204,7 +214,7 @@
                         </div>
                     </div>
                     <div class="card-action">
-                        <button class="waves-effect waves-teal btn-flat" type="submit" name="action" id="ad_submit_btn">
+                        <button class="waves-effect waves-light btn" type="submit" name="action" id="ad_submit_btn">
                             Crear
                             <i class="material-icons right">send</i>
                         </button>

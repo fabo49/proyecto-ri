@@ -13,6 +13,7 @@ from datetime import datetime
 import Documento
 from HelpMethods import *
 from scoring import *
+from Ad import *
 
 app = Flask(__name__)
 
@@ -22,9 +23,11 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/newAd', methods=['POST'])
+@app.route('/confirmAd', methods=['POST'])
 def NewAd():
     title = request.form['ad_title']
+    new_ad = Ad(request.form['ad_title'], request.form['ad_description'], request.form['ad_url'],
+                request.form['ad_keywords'], request.form['ad_payment_options'])
     return render_template('adConfirm.html', ad_title=title)
 
 
