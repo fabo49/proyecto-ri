@@ -9,6 +9,9 @@
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <!-- Ajax -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
@@ -124,6 +127,7 @@
                         <p>El buscador facil y seguro</p>
                     </div>
                 </li>
+                <li><a href="/">Inicio</a></li>
                 <li><a href="/createAd">Anúnciate</a></li>
                 <li><a href="#modal_about">Acerca de</a></li>
                 <li>
@@ -168,7 +172,7 @@
     </div>
     {% else %}
     <div class="row">
-        <div class="col s12 m8">
+        <div class="col s12 m8 push-s12">
             {% for result in documents %}
             <div class="row">
                 <div class="col s12">

@@ -23,13 +23,17 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/_update_views')
+def UpdateViews():
+    ads = Ad.Ads()
+
+
 @app.route('/confirmAd', methods=['POST'])
-def NewAd():
-    title = request.form['ad_title']
+def SaveAd():
     new_ad = Ad(request.form['ad_title'], request.form['ad_description'], request.form['ad_url'],
                 request.form['ad_keywords'], request.form['ad_payment_options'])
     new_ad.SaveAd()
-    return render_template('adConfirm.html', ad_title=title)
+    return render_template('adConfirm.html', ad=new_ad)
 
 
 @app.route('/createAd/', methods=['GET'])

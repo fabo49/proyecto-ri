@@ -51,6 +51,21 @@ class Ad(object):
         ads_file.write('\n')
         ads_file.close()
 
+    def GetAd(self, link):
+        '''
+        Metodo que busca un anuncio con base en el link que recibe
+        :param link: link que desea buscar a cual anuncio le pertenece
+        :return: Objeto tipo Ad que corresponde al anuncio con el link que recibe de parametro, si no lo encuenta retorna un objeto Ad vacio
+        '''
+        ads = Ad.Ads()
+        found = False
+        index = 0
+        while index < len(ads) and not found:
+            if ads[index].link == link:
+                found = True
+            index += 1
+        return ads[index] if found else Ad()
+
     def UpdateViews(self):
         '''
         Metodo que resta una visita de total que tiene el anuncio
