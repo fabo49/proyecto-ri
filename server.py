@@ -13,6 +13,7 @@ from datetime import datetime
 import Documento
 from HelpMethods import *
 from scoring import *
+from Ad import *
 
 app = Flask(__name__)
 
@@ -22,16 +23,32 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/confirmAd', methods=['POST'])
+def NewAd():
+    title = request.form['ad_title']
+    new_ad = Ad(request.form['ad_title'], request.form['ad_description'], request.form['ad_url'],
+                request.form['ad_keywords'], request.form['ad_payment_options'])
+    new_ad.SaveAd()
+    return render_template('adConfirm.html', ad_title=title)
+
+
+@app.route('/createAd/', methods=['GET'])
+def CreateAd():
+    return render_template('createAd.html')
+
+
 @app.route('/results/')
 @app.route('/results/', methods=['GET'])
 def results():
+    ads = ""
     query = request.args.get('query')
     t_inicial = datetime.now()  # Empieza a tomar el tiempo
     results_list = Scoring.Score(query, 'index.txt', 'dictionary.txt', False)
     documents_list = HelpMethods.ResultsList(results_list)
     t_final = datetime.now() - t_inicial  # Hace el calculo del tiempo que le tomo hacer la consulta
+    ads = Ad.Ads()  # Por ahora muestra todos los anuncios que hay
     return render_template('results.html', query=query, time=t_final, documents=documents_list,
-                           cant_results=len(documents_list))
+                           cant_results=len(documents_list), ads=ads)
 
 
 if __name__ == "__main__":
