@@ -1,2 +1,3 @@
 2016-11-16 23:25:21.002242|Fabian fotografia|https://www.facebook.com/fabianfotografiacr/|Fotografias realizadas por Fabian Rodriguez Obando|200|photography,photograph,Fabian,fotografia
 2016-11-16 23:29:58.364666|Solsoft|http://www.solsoft.pl/en/|Empreza especialidada en el desarrollo de software|300|software,development,solsoft
+2016-11-17 20:32:29.408978|Facebook|https://facebook.com|Facebook is an American for-profit corporation and online social media and social networking service based in Menlo Park, California, United States.|300|social networking,facebook,friends

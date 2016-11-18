@@ -37,7 +37,6 @@ class Ad(object):
         self.keywords = keywords.split(',')
         self.id = datetime.now()
         self.cant_visits = cant_visits
-        self.SaveAd()
 
     def SaveAd(self):
         '''
@@ -51,6 +50,13 @@ class Ad(object):
         ads_file.write(line)
         ads_file.write('\n')
         ads_file.close()
+
+    def UpdateViews(self):
+        '''
+        Metodo que resta una visita de total que tiene el anuncio
+        :return:
+        '''
+        self.cant_visits -= 1
 
     @staticmethod
     def Ads():
