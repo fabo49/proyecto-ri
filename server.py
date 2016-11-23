@@ -8,7 +8,7 @@ Tarea programada 1
 '''
 
 import os # Para correr en C9
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 import Documento
 from HelpMethods import *
@@ -25,7 +25,10 @@ def index():
 
 @app.route('/_update_views')
 def UpdateViews():
-    ads = Ad.Ads()
+    link = request.args.get('ad')
+    ad = Ad.GetAd(link)
+    ad.UpdateAd()
+    return jsonify(url=link)
 
 
 @app.route('/confirmAd', methods=['POST'])
@@ -44,7 +47,6 @@ def CreateAd():
 @app.route('/results/')
 @app.route('/results/', methods=['GET'])
 def results():
-    ads = ""
     query = request.args.get('query')
     t_inicial = datetime.now()  # Empieza a tomar el tiempo
     results_list = Scoring.Score(query, 'index.txt', 'dictionary.txt', False)

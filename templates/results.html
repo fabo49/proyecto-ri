@@ -58,7 +58,18 @@
 
     </style>
 
-    <script>
+    <script type="text/javascript">
+
+        function UpdateViews(obj) {
+            var link = obj.getAttribute("href");
+            $.getJSON('/_update_views', {
+                ad: link
+            }, function (data) {
+                window.location = data.url;
+            });
+            return false;
+        }
+
         $(document).ready(function () {
             // Initialize collapse button
             $(".button-collapse").sideNav();
@@ -196,8 +207,10 @@
                 {% for ad in ads %}
                 <div class="row">
                     <div class="col s12">
-                        <a href="{{ad.link}}">{{ad.title}}<span class="new badge right amber"
-                                                                data-badge-caption="Ad"></span></a>
+                        <a href="{{ad.link}}" link="{{ad.link}}"
+                           onclick="return UpdateViews(this);">{{ad.title}}<span
+                                class="new badge right amber"
+                                data-badge-caption="Ad"></span></a>
                         <p class="green-text truncate">
                             <small>{{ad.link}}</small>
                         </p>
@@ -210,6 +223,9 @@
                 {%endfor%}
             </div>
         </div>
+        <form>
+            <input type="text" name="selected_link" class="hide">
+        </form>
     </div>
     {% endif %}
 </div>
