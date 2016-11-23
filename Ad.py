@@ -51,7 +51,20 @@ class Ad(object):
         ads_file.write('\n')
         ads_file.close()
 
-    def GetAd(self, link):
+    def UpdateAd(self):
+        '''
+        Metodo que resta una visita de total que tiene el anuncio y actualiza el archivo ads.txt
+        :return:
+        '''
+        ads = Ad.Ads()
+        Ad.ClearAds()
+        for ad in ads:
+            if ad.id == self.id:
+                ad.cant_visits = str(int(ad.cant_visits) - 1)
+            ad.SaveAd()
+
+    @staticmethod
+    def GetAd(link):
         '''
         Metodo que busca un anuncio con base en el link que recibe
         :param link: link que desea buscar a cual anuncio le pertenece
@@ -63,15 +76,9 @@ class Ad(object):
         while index < len(ads) and not found:
             if ads[index].link == link:
                 found = True
-            index += 1
+            else:
+                index += 1
         return ads[index] if found else Ad()
-
-    def UpdateViews(self):
-        '''
-        Metodo que resta una visita de total que tiene el anuncio
-        :return:
-        '''
-        self.cant_visits -= 1
 
     @staticmethod
     def Ads():
@@ -82,15 +89,16 @@ class Ad(object):
         ads_list = []
         ads_file = open('ads.txt', 'r')
         for ad in ads_file:
-            saved_ad = ad.split('|')
-            ad_tmp = Ad()
-            ad_tmp.id = saved_ad[0]
-            ad_tmp.title = saved_ad[1]
-            ad_tmp.link = saved_ad[2]
-            ad_tmp.description = saved_ad[3]
-            ad_tmp.cant_visits = saved_ad[4]
-            ad_tmp.keywords = saved_ad[5].split(',')
-            ads_list.append(ad_tmp)
+            if ad != '\n':
+                saved_ad = ad.split('|')
+                ad_tmp = Ad()
+                ad_tmp.id = saved_ad[0]
+                ad_tmp.title = saved_ad[1]
+                ad_tmp.link = saved_ad[2]
+                ad_tmp.description = saved_ad[3]
+                ad_tmp.cant_visits = saved_ad[4]
+                ad_tmp.keywords = saved_ad[5].split(',')
+                ads_list.append(ad_tmp)
         ads_file.close()
         return ads_list
 
