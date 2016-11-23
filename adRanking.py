@@ -18,7 +18,8 @@ class adRanking(object):
     @staticmethod
     def ranking(query):
         ad_list = Ad.Ads()   # Obtiene los ads en una lista
-        query_tokenize = LanguageProcessing.Tokenize(query, True)   # Obtiene la query tokenizada
+        # query_tokenize = LanguageProcessing.Tokenize(query, True)   # Obtiene la query tokenizada     # Hasta pasar tokenize en anuncio
+        query_tokenize = query
         
         ad_results = []
         freq_ad_results = []
@@ -57,3 +58,9 @@ class adRanking(object):
             results.append(Ad.GetAd(res))
             
         return results
+        
+def Test():
+    res = adRanking.ranking("photography")
+    print res[0].title
+    
+Test()
