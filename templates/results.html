@@ -62,7 +62,6 @@
 
         function UpdateViews(obj) {
             var link = obj.getAttribute("href");
-            alert(link);
             $.getJSON('/_update_views', {
                 ad: link
             }, function (data) {
