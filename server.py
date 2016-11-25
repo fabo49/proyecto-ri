@@ -61,5 +61,5 @@ if __name__ == "__main__":
     HelpMethods.MatrixDocuments()
     print '[DEBUG]: Indexando...'
     HelpMethods.CreateIndexAndDictionary()
-    #app.run(debug=True, port=5052)
-    app.run(debug=True,host=os.environ['IP'],port=int(os.environ['PORT'])) # Para correr en C9
+    app.run(debug=True, port=5052)
+    #app.run(debug=True,host=os.environ['IP'],port=int(os.environ['PORT'])) # Para correr en C9
