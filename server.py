@@ -7,7 +7,7 @@ Tarea programada 1
 @author: Fabian Rodriguez B25695
 '''
 
-# import os # Para correr en C9
+import os # Para correr en C9
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 import Documento
@@ -61,5 +61,5 @@ if __name__ == "__main__":
     HelpMethods.MatrixDocuments()
     print '[DEBUG]: Indexando...'
     HelpMethods.CreateIndexAndDictionary()
-    app.run(debug=True, port=5052)
-    # app.run(debug=True,host=os.environ['IP'],port=int(os.environ['PORT'])) # Para correr en C9
+    #app.run(debug=True, port=5052)
+    app.run(debug=True,host=os.environ['IP'],port=int(os.environ['PORT'])) # Para correr en C9
