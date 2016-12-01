@@ -7,11 +7,12 @@ Tarea programada 1
 @author: Fabian Rodriguez B25695
 '''
 
-import os # Para correr en C9
+import os  # Para correr en C9
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 import Documento
 from HelpMethods import *
+from adRanking import *
 from scoring import *
 from Ad import *
 
@@ -52,7 +53,7 @@ def results():
     results_list = Scoring.Score(query, 'index.txt', 'dictionary.txt', False)
     documents_list = HelpMethods.ResultsList(results_list)
     t_final = datetime.now() - t_inicial  # Hace el calculo del tiempo que le tomo hacer la consulta
-    ads = Ad.Ads()  # Por ahora muestra todos los anuncios que hay
+    ads = adRanking.ranking(query)
     return render_template('results.html', query=query, time=t_final, documents=documents_list,
                            cant_results=len(documents_list), ads=ads)
 
@@ -62,4 +63,4 @@ if __name__ == "__main__":
     print '[DEBUG]: Indexando...'
     HelpMethods.CreateIndexAndDictionary()
     app.run(debug=True, port=5052)
-    #app.run(debug=True,host=os.environ['IP'],port=int(os.environ['PORT'])) # Para correr en C9
+    # app.run(debug=True,host=os.environ['IP'],port=int(os.environ['PORT'])) # Para correr en C9

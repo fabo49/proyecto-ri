@@ -1,4 +1,8 @@
 2016-12-01 14:23:38.104611|Fabian fotografia|https://www.facebook.com/fabianfotografiacr/|Fotografias realizadas por Fabian Rodriguez Obando|300|photographi,pictur,fotografia,fabian,wed
+
 2016-12-01 14:24:38.236055|Toptal|https://www.toptal.com/developers|Toptal is a marketplace for top developers, engineers, programmers, and consultants. Top companies and start-ups hire freelance developers from Toptal for their most mission-critical projects.|600|freelanc,comput,job,toptal,scienc
+
 2016-12-01 14:25:28.144393|Daft Punk|https://www.daftpunk.com/|Daft Punk are a French electronic music duo formed in 1993 by Guy-Manuel de Homem-Christo and Thomas Bangalter.|300|parti,electron,daft,music,punk
-2016-12-01 14:29:35.718216|Universidad de Costa Rica|http://www.ucr.ac.cr|The University of Costa Rica (Spanish: Universidad de Costa Rica, abbreviated UCR) is a public university in the Republic of Costa Rica, in Central America|200|costa,de,univers,research,universidad,rica,scienc
+
+2016-12-01 14:29:35.718216|Universidad de Costa Rica|http://www.ucr.ac.cr|The University of Costa Rica (Spanish: Universidad de Costa Rica, abbreviated UCR) is a public university in the Republic of Costa Rica, in Central America|199|costa,de,univers,research,universidad,rica,scienc
+
