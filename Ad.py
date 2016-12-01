@@ -35,11 +35,12 @@ class Ad(object):
         self.title = title
         self.description = description
         self.link = link
-        # TODO: tokenizar los keywords
         self.keywords = []
         keywords_tmp = keywords.split(',')
         for keyword in keywords_tmp:
-            self.keywords.extend(LanguageProcessing.Tokenize(keyword))
+            self.keywords.extend(LanguageProcessing.Tokenize(keyword, True))
+        self.keywords.extend(LanguageProcessing.Tokenize(self.title, True))
+        self.keywords = list(set(self.keywords))
         self.id = datetime.now()
         self.cant_visits = cant_visits
 
@@ -114,11 +115,19 @@ class Ad(object):
         '''
         if os.path.isfile('ads.txt'): os.remove('ads.txt')
 
-# def Test():
-#    Ad.ClearAds()
-#    ad1 = Ad('Titulo 1', 'Una descripcion bonita', 'http://google.com', 'perro,gato,animales', '30')
-#    ad2 = Ad('Titulo 2', 'Una descripcion bonita', 'http://google.com', 'perro,gato,animales', '30')
-#    ad3 = Ad('Titulo 3', 'Una descripcion bonita', 'http://google.com', 'perro,gato,animales', '30')
+        # def Test():
+
+    #    Ad.ClearAds()
+
+    #    ad1 = Ad('Titulo 1', 'Una descripcion bonita', 'http://google.com', 'perro,gato,animales', '30')
+    #    ad2 = Ad('Titulo 2', 'Una descripcion bonita', 'http://google.com', 'perro,gato,animales', '30')
+    #    ad3 = Ad('Titulo 3', 'Una descripcion bonita', 'http://google.com', 'perro,gato,animales', '30')
+
+# ad4 = Ad('Toptal','Toptal is a marketplace for top developers, engineers, programmers, and consultants. Top companies and start-ups hire freelance developers from Toptal for their most mission-critical projects.','https://www.toptal.com/developers', 'computers,science,jobs,toptal', '200')
+#    ad4.SaveAd()
+
+
 #    ads = Ad.Ads()
+
 
 # Test()

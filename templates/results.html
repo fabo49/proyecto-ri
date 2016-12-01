@@ -202,6 +202,7 @@
             </div>
             {% endfor %}
         </div>
+        {% if ads|length > 0 %}
         <div class="col s12 m4">
             <div class="card-panel">
                 {% for ad in ads %}
@@ -223,6 +224,7 @@
                 {%endfor%}
             </div>
         </div>
+        {%endif%}
         <form>
             <input type="text" name="selected_link" class="hide">
         </form>
