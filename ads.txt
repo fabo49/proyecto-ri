@@ -1,8 +1,0 @@
-2016-11-16 23:25:21.002242|Fabian fotografia|https://www.facebook.com/fabianfotografiacr/|Fotografias realizadas por Fabian Rodriguez Obando|199|photography,photograph,Fabian,fotografia
-
-2016-11-16 23:29:58.364666|Solsoft|http://www.solsoft.pl/en/|Empreza especialidada en el desarrollo de software|299|software,development,solsoft
-
-2016-11-18 11:09:47.353011|Van der Laat y Jimenez|http://www.vjcr.net/en|45 years of commitment to each one of the stages necessary for completing our construction projects within the established deadlines and with high quality standards.|600|construction,van der laat y jimenez
-
-2016-11-18 11:13:47.034274|Daft Punk|https://www.daftpunk.com/|Daft Punk are a French electronic music duo formed in 1993 by Guy-Manuel de Homem-Christo and Thomas Bangalter.|597|daft,punk,electronic,music
-

@@ -8,6 +8,7 @@ Proyecto programado
 '''
 
 from datetime import datetime
+from LanguageProcessing import *
 import os
 
 
@@ -34,7 +35,11 @@ class Ad(object):
         self.title = title
         self.description = description
         self.link = link
-        self.keywords = keywords.split(',')
+        # TODO: tokenizar los keywords
+        self.keywords = []
+        keywords_tmp = keywords.split(',')
+        for keyword in keywords_tmp:
+            self.keywords.extend(LanguageProcessing.Tokenize(keyword))
         self.id = datetime.now()
         self.cant_visits = cant_visits
 

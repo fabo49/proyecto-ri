@@ -59,8 +59,8 @@ class adRanking(object):
             
         return results
         
-def Test():
-    res = adRanking.ranking("photography")
-    print res[0].title
+#def Test():
+#    res = adRanking.ranking("photography")
+#    print res[0].title
     
-Test()
+#Test()
