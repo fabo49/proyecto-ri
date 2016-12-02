@@ -51,9 +51,13 @@ def results():
     query = request.args.get('query')
     t_inicial = datetime.now()  # Empieza a tomar el tiempo
     results_list = Scoring.Score(query, 'index.txt', 'dictionary.txt', False)
+    print results_list
     documents_list = HelpMethods.ResultsList(results_list)
+    print documents_list
     t_final = datetime.now() - t_inicial  # Hace el calculo del tiempo que le tomo hacer la consulta
     ads = adRanking.ranking(query)
+    print ads
+    print "[DEBUG] end algorythm"
     return render_template('results.html', query=query, time=t_final, documents=documents_list,
                            cant_results=len(documents_list), ads=ads)
 
