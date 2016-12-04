@@ -13,3 +13,4 @@
 2016-12-04 07:44:24.305215|Tech Crunch|https://techcrunch.com/|TechCrunch is a leading technology media property, dedicated to obsessively profiling startups, reviewing new Internet products, and breaking tech news.|299|comput,crunch,technolog,tech,internet
 
 2016-12-04 07:47:08.318268|Animal Planet|http://www.animalplanet.com/|Animal Planet is an American basic cable and satellite television channel owned by Discovery Communications.|300|planet,anim,discoveri,televis,scienc
+2016-12-04 08:02:38.096635|Intro to RI|http://nlp.stanford.edu/IR-book/|During the last decade, relentless optimization of information retrieval effectiveness has driven web search engines to new quality levels where most people are satisfied most of the time.|200|comput,stanford,inform,book,retriev,intro,ri,scienc
