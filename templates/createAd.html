@@ -9,9 +9,6 @@
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <!-- Ajax -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
@@ -21,53 +18,19 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>FindEx</title>
+    <title>FindEx | New Ad</title>
 
-    <style>
-        /* icon prefix color */
-        .input-field .prefix {
-            color: #616161;
-        }
+    <script>
 
-        .input-field {
-            height: 10px;
-            font-size: 11px;
-        }
 
-        .input-field input[type=text] {
-            border-bottom: 1px solid #616161;
-            box-shadow: 0 1px 0 0 #616161;
-            color: #212121 !important;
-        }
-
-        /* label underline focus color */
-        .input-field input[type=text]:focus {
-            border-bottom: 1px solid #4caf50;
-            box-shadow: 0 1px 0 0 #4caf50;
-            color: #212121;
-        }
-
-        /* icon prefix focus color */
-        .input-field .prefix.active {
-            color: #4caf50;
-        }
-
-        .button-collapse {
-            color: #616161;
-        }
-
-    </style>
-
-    <script type="text/javascript">
-
-        function UpdateViews(obj) {
-            var link = obj.getAttribute("href");
-            $.getJSON('/_update_views', {
-                ad: link
-            }, function (data) {
-                window.location = data.url;
-            });
-            return false;
+        function UpdateKeywords() {
+            var tags = $('.chips').material_chip('data');
+            var string_tags = "";
+            for (var key in tags) {
+                string_tags += tags[key].tag + ',';
+            }
+            string_tags = string_tags.substring(0, string_tags.length - 1);
+            $('#ad_keywords').val(string_tags);
         }
 
         $(document).ready(function () {
@@ -105,12 +68,46 @@
                 $('#search-bar').slideUp("slow");
             });
 
+            // Inicializa el select
+            $('select').material_select();
+
+            $('#ad_payment_options').change(function () {
+                var value = $('#ad_payment_options').val();
+                switch (value) {
+                    case "200":
+                        // $30
+                        $('#ad_price').val("30");
+                        break;
+                    case "300":
+                        // $50
+                        $('#ad_price').val("50");
+                        break;
+                    case "600":
+                        // $80
+                        $('#ad_price').val("80");
+                        break;
+                    default:
+                        // Dejarlo en 0
+                        $('#ad_price').val("0");
+                }
+            });
+
 
             // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
             $('.modal').modal();
 
-        });
+            // para inicializar los tags del anuncio
+            $('.chips').material_chip();
 
+            // Para obtener los datos de los tags
+            $('.chips').on('chip.add', function (e, chip) {
+                UpdateKeywords();
+            });
+
+            $('.chips').on('chip.delete', function (e, chip) {
+                UpdateKeywords();
+            });
+        });
     </script>
 </head>
 <body>
@@ -151,7 +148,7 @@
 </nav>
 <nav id="search-bar" class="white" style="display:none;">
     <div class="nav-wrapper">
-        <form action="">
+        <form action="/results">
             <div class="input-field">
                 <input id="query" type="search" name="query" value="{{query}}">
                 <label for="query" id="label-search"><i class="material-icons grey-text darken-4">search</i></label>
@@ -160,76 +157,73 @@
         </form>
     </div>
 </nav>
-<div class="container">
+
+<div class="container" style="margin-top:10px;">
     <div class="row">
-        <div class="col s12">
-            <p class="grey-text left">
-                <small>Duración de la búsqueda: {{time.seconds}}.{{time.microseconds}} segundos</small>
-            </p>
-            <p class="grey-text right">
-                {% if cant_results == 1 %}
-                <small>1 resultado obtenido</small>
-                {% else %}
-                <small>{{cant_results}} resultados obtenidos</small>
-                {% endif %}
-            </p>
-        </div>
-    </div>
-    {% if cant_results == 0 %}
-    <div class="row">
-        <div class="col s12">
-            <p class="red-text center">No se encontraron resultados para <b>{{query}}</b></p>
-        </div>
-    </div>
-    {% else %}
-    <div class="row">
-        <div class="col s12 m8 push-s12">
-            {% for result in documents %}
-            <div class="row">
-                <div class="col s12">
-                    <h5><a href="{{result.GetUrl()}}" class="truncate">{{result.GetUrl() if result.GetTitle() == '' else
-                        result.GetTitle()}}</a></h5>
-                    <p class="green-text truncate">
-                        <small>{{result.GetUrl()}}</small>
-                    </p>
-                    {% if result.GetDescription() != "" %}
-                    <p class="grey-text text-darken-2">{{result.GetDescription()}}</p>
-                    {%else%}
-                    <p class="grey-text text-darken-2">Sin descripción del sitio...</p>
-                    {% endif %}
-                    <div class="divider"></div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        {% if ads|length > 0 %}
-        <div class="col s12 m4">
-            <div class="card-panel">
-                {% for ad in ads %}
-                <div class="row">
-                    <div class="col s12">
-                        <a href="{{ad.link}}" link="{{ad.link}}"
-                           onclick="return UpdateViews(this);">{{ad.title}}<span
-                                class="new badge right amber"
-                                data-badge-caption="Ad"></span></a>
-                        <p class="green-text truncate">
-                            <small>{{ad.link}}</small>
-                        </p>
-                        <p class="grey-text text-darken-2">
-                            <small>{{ad.description}}</small>
-                        </p>
-                        <div class="divider"></div>
+        <div class="col s12 m10 offset-m1">
+            <h4 class="teal-text center">Crea tu anuncio</h4>
+            <div class="card">
+                <form action="/confirmAd" method="post" id="create_ad_form">
+                    <div class="card-content">
+                        <span class="card-title teal-text">Información del anuncio</span>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="ad_title" type="text" name="ad_title" class="validate" required>
+                                <label for="ad_title">Título del anuncio</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="ad_url" type="url" name="ad_url" class="validate" required>
+                                <label for="ad_url">Link al sitio</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="ad_description" name="ad_description"
+                                          class="materialize-textarea validate"
+                                          length="200" required></textarea>
+                                <label for="ad_description">Descripción del sitio</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <div class="chips" id="keywords"></div>
+                                <input type="text" name="ad_keywords" id="ad_keywords" class="hide">
+                                <label for="keywords">Palabras clave</label>
+                            </div>
+                        </div>
+                        <span class="card-title teal-text">Datos de pago</span>
+                        <p class="grey-text">Puede escoger de los distintos tipos de planes que tenemos para su anuncio. Estos planes se
+                            basan en la cantidad de visitas por las que quiere pagar y la visita no se le descontará
+                            hasta que el usuario ingrese a su sitio web por medio del anuncio.</p>
+                        <br/>
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <select name="ad_payment_options" id="ad_payment_options">
+                                    <option value="" disabled selected>Selecciona el plan adecuado</option>
+                                    <option value="200">200 visitas</option>
+                                    <option value="300">400 visitas</option>
+                                    <option value="600">600 visitas</option>
+                                </select>
+                                <label for="ad_payment_options">Opciones de planes</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <i class="material-icons prefix grey-text">attach_money</i>
+                                <input type="text" class="validate" id="ad_price" name="ad_price" value="0" required
+                                       disabled>
+                                <label for="ad_price">Precio en dólares</label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                {%endfor%}
+                    <div class="card-action">
+                        <button class="waves-effect waves-light btn" type="submit" name="action" id="ad_submit_btn">
+                            Crear
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
-        {%endif%}
-        <form>
-            <input type="text" name="selected_link" class="hide">
-        </form>
     </div>
-    {% endif %}
 </div>
 
 <div class="fixed-action-btn hide-on-large-only">
@@ -237,7 +231,6 @@
         <i class="material-icons">search</i>
     </a>
 </div>
-
 <!-- Modal Informacion -->
 <div id="modal_about" class="modal modal-fixed-footer">
     <div class="modal-content">

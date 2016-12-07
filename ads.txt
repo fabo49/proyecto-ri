@@ -1,0 +1,16 @@
+2016-12-01 14:23:38.104611|Fabian fotografia|https://www.facebook.com/fabianfotografiacr/|Fotografias realizadas por Fabian Rodriguez Obando|300|photographi,pictur,fotografia,fabian,wed
+
+2016-12-01 14:24:38.236055|Toptal|https://www.toptal.com/developers|Toptal is a marketplace for top developers, engineers, programmers, and consultants. Top companies and start-ups hire freelance developers from Toptal for their most mission-critical projects.|600|freelanc,comput,job,toptal,scienc
+
+2016-12-01 14:25:28.144393|Daft Punk|https://www.daftpunk.com/|Daft Punk are a French electronic music duo formed in 1993 by Guy-Manuel de Homem-Christo and Thomas Bangalter.|298|parti,electron,daft,music,punk
+
+2016-12-01 14:29:35.718216|Universidad de Costa Rica|http://www.ucr.ac.cr|The University of Costa Rica (Spanish: Universidad de Costa Rica, abbreviated UCR) is a public university in the Republic of Costa Rica, in Central America|199|costa,de,univers,research,universidad,rica,scienc
+
+2016-12-04 07:37:32.656931|National Geographic|http://www.nationalgeographic.com/|Explore National Geographic Online. A world leader in geography, cartography and exploration.|300|natur,geograph,nation,magazin,cartographi,scienc
+
+2016-12-04 07:42:07.400629|Discovery Channel|http://www.discovery.com|Discovery Channel is an American basic cable and satellite television channel that is the flagship television property of Discovery Communications, a publicly traded company run by CEO David Zaslav.|600|investig,televis,natur,discoveri,channel,scienc
+
+2016-12-04 07:44:24.305215|Tech Crunch|https://techcrunch.com/|TechCrunch is a leading technology media property, dedicated to obsessively profiling startups, reviewing new Internet products, and breaking tech news.|299|comput,crunch,technolog,tech,internet
+
+2016-12-04 07:47:08.318268|Animal Planet|http://www.animalplanet.com/|Animal Planet is an American basic cable and satellite television channel owned by Discovery Communications.|300|planet,anim,discoveri,televis,scienc
+2016-12-04 08:02:38.096635|Intro to RI|http://nlp.stanford.edu/IR-book/|During the last decade, relentless optimization of information retrieval effectiveness has driven web search engines to new quality levels where most people are satisfied most of the time.|200|comput,stanford,inform,book,retriev,intro,ri,scienc

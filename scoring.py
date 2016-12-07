@@ -135,7 +135,7 @@ class Scoring(object):
             # Calculo del idf para uso
             for dFreq in df:
                 if dFreq is not 0:
-                    idf.append(log10(float(N) / float(dFreq)))
+                    idf.append(abs(log10(float(N) / float(dFreq))))
                 else:
                     idf.append(0)
             if mode: print "[debug]: IDF: %s" % idf
